@@ -72,18 +72,17 @@ export default function About() {
         <div className="about-hero-overlay" aria-hidden="true" />
       </section>
 
-      {/* Sứ mệnh */}
+      {/* Sứ mệnh & Tầm nhìn */}
       <section className="container section">
         <div className="about-mission-grid">
           <div className="about-mission-text">
             <span className="section-label">Sứ mệnh</span>
-            <h2>Sâm Bố Chính Việt — từ đất Tây Ninh</h2>
+            <h2>Sâm Bố Chính Việt — Từ Đất Tây Ninh</h2>
             <p>
               Bà Đen Farm tiên phong nghiên cứu và phát triển cây Sâm Bố Chính
               — loài dược liệu quý đã được ghi chép trong y học cổ truyền Việt
-              Nam hàng trăm năm. Bắt đầu từ 1,2 hecta thử nghiệm năm 2015, đến
-              nay vùng trồng đã mở rộng 10+ hecta, liên kết với nông dân 4
-              huyện của Tây Ninh.
+              Nam hàng trăm năm. Đưa Nhân Sâm Việt đến với người Việt, mang lại
+              lợi ích kinh tế cho nông dân Tây Ninh và góp phần thay đổi bộ mặt Dược liệu sạch Việt Nam.
             </p>
             <p>
               Mỗi sản phẩm đều trải qua canh tác hữu cơ nghiêm ngặt, kiểm định
@@ -108,6 +107,35 @@ export default function About() {
               <span className="stat-number">15.2</span>
               <span className="stat-desc">mg/g Saponin tổng</span>
             </div>
+          </div>
+        </div>
+
+        {/* Infographic Sứ mệnh & Tầm nhìn */}
+        <div style={{ marginTop: '48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
+          <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '24px', boxShadow: 'var(--shadow)' }}>
+            <span className="section-label">Nền tảng</span>
+            <h3 style={{ fontSize: '22px', margin: '8px 0 16px', color: 'var(--green-800)' }}>Sứ Mệnh (Mission)</h3>
+            <p style={{ color: 'var(--text-soft)', marginBottom: '16px', fontSize: '15px', lineHeight: '1.6' }}>
+              Xây dựng Sâm Bố Chính trở thành thương hiệu đặc sản của Tây Ninh và thương hiệu quốc gia Việt Nam. Mang lại lợi ích kinh tế bền vững cho người nông dân địa phương.
+            </p>
+            <img 
+              src="/images/su-menh.png" 
+              alt="Sứ mệnh Công ty Cổ phần Bà Đen Farm" 
+              style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }} 
+            />
+          </div>
+
+          <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '24px', boxShadow: 'var(--shadow)' }}>
+            <span className="section-label">Định hướng</span>
+            <h3 style={{ fontSize: '22px', margin: '8px 0 16px', color: 'var(--green-800)' }}>Tầm Nhìn (Vision)</h3>
+            <p style={{ color: 'var(--text-soft)', marginBottom: '16px', fontSize: '15px', lineHeight: '1.6' }}>
+              Trở thành đơn vị uy tín và tiên phong trong ngành Dược liệu sạch tại Việt Nam. Đưa sản phẩm Dược liệu Việt Nam vươn tầm quốc tế (Nhật Bản, Hàn Quốc, Mỹ, Châu Âu, Úc).
+            </p>
+            <img 
+              src="/images/tam-nhin.png" 
+              alt="Tầm nhìn Công ty Cổ phần Bà Đen Farm" 
+              style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }} 
+            />
           </div>
         </div>
       </section>
