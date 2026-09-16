@@ -82,16 +82,125 @@ export interface PostDetail {
   related: PostListItem[];
 }
 
+export const MOCK_POSTS: PostDetail[] = [
+  {
+    id: "post-loi-ich-sbc",
+    title: "10 Lợi ích Tuyệt vời của Sâm Bố Chính đối với Sức khỏe & Làn da",
+    slug: "tong-hop-loi-ich-sam-bo-chinh",
+    excerpt: "Khám phá 10 công dụng dược lý vượt trội của Sâm Bố Chính Tây Ninh: nuôi dưỡng xương khớp, giải độc gan, an thần ngủ ngon và làm đẹp da.",
+    content: `<p><strong>Sâm Bố Chính (Abelmoschus sagittifolius)</strong> là loại nhân sâm tiến vua có lịch sử hơn 300 năm tại Việt Nam. Nghiên cứu khoa học cho thấy Sâm Bố Chính Bà Đen Farm chứa hàm lượng chất nhầy lớn (377,8 mg/g) cùng Saponin toàn phần (15,2 mg/g) mang lại nhiều giá trị dưỡng sinh cao.</p><p style="text-align:center;"><img src="/images/loi-ich-sbc.png" alt="10 Lợi ích Sâm Bố Chính Bà Đen Farm" style="width:100%; max-width:850px; display:inline-block; margin:24px auto; border-radius:12px; box-shadow: 0 4px 20px rgba(0,0,0,0.12);" /></p><h3>1. Nuôi dưỡng & bảo vệ hệ xương khớp</h3><p>Chất nhầy tự nhiên (377,8 mg/g) đóng vai trò nuôi dưỡng sụn khớp, giúp các khớp cơ hoạt động trơn tru, giảm đau nhức xương khớp ở người cao tuổi.</p><h3>2. Tăng cường hệ miễn dịch & Kháng thể</h3><p>Dồi dào enzyme và Saponin triterpenoid hỗ trợ kích thích bạch cầu, nâng cao thể lực và sức đề kháng chống lại vi khuẩn.</p><h3>3. Thanh lọc giải độc gan</h3><p>Hoạt chất Cysteine cân bằng lượng amoniac trong máu, hạn chế tác hại của bia rượu, thuốc lá và hóa chất tích tụ trong gan.</p><h3>4. Cải thiện mất ngủ mãn tính</h3><p>Glycine, Histidine và Valine trong sâm có tác dụng an thần, xua tan căng thẳng mệt mỏi, mang lại giấc ngủ ngon sâu giấc sau 30 ngày.</p><h3>5. Trẻ hóa làn da & Kích thích Collagen</h3><p>Amino acid Glycine, Phenylalanine và Threonine ngăn ngừa lão hóa sớm, hỗ trợ tổng hợp Collagen cho làn da mịn màng hồng hào.</p>`,
+    cover_image_url: "/images/loi-ich-sbc.png",
+    category: { id: "cat-b1", name: "Kiến thức Dược liệu", slug: "kien-thuc-duoc-lieu" },
+    author_name: "Ban Biên Tập Bà Đen Farm",
+    tags: [{ id: "t1", name: "SâmBốChính", slug: "sam-bo-chinh" }, { id: "t2", name: "SứcKhỏe", slug: "suc-khoe" }],
+    published_at: "2026-09-14T08:00:00Z",
+    disclaimer: "Thông tin tổng hợp dựa trên nghiên cứu khoa học và hồ sơ dược liệu của Bà Đen Farm.",
+    seo: { title: "10 Lợi ích Tuyệt vời của Sâm Bố Chính đối với Sức khỏe", description: "Bảng tổng hợp 10 lợi ích sức khỏe của Sâm Bố Chính Bà Đen Farm.", robots: "index,follow" },
+    json_ld: [],
+    related: [],
+  },
+  {
+    id: "post-su-menh-tam-nhin",
+    title: "Sứ mệnh & Tầm nhìn Nâng tầm Dược liệu Việt — Công ty Cổ phần Bà Đen Farm",
+    slug: "su-menh-tam-nhin-ba-den-farm",
+    excerpt: "Hành trình khôi phục nguồn gen Sâm Bố Chính tại Tây Ninh và ước mơ đưa Dược liệu Việt vươn tầm thế giới.",
+    content: `<p>Công ty Cổ phần Bà Đen Farm tự hào là đơn vị tiên phong trong việc ứng dụng công nghệ đối với lĩnh vực nông nghiệp tại tỉnh Tây Ninh, chuyên trồng, chăm sóc và chế biến các sản phẩm từ củ Sâm Bố Chính.</p><p style="text-align:center;"><img src="/images/su-menh.png" alt="Sứ mệnh Bà Đen Farm" style="width:100%; max-width:850px; display:inline-block; margin:24px auto; border-radius:12px; box-shadow: 0 4px 20px rgba(0,0,0,0.12);" /></p><h3>SỨ MỆNH (MISSION)</h3><p>Đưa Nhân Sâm Việt đến với người Việt. Nỗ lực không ngừng nghỉ để xây dựng Sâm Bố Chính là thương hiệu đặc sản của Tỉnh Tây Ninh và thương hiệu quốc gia Việt Nam. Mang lại lợi ích kinh tế cho người nông dân, góp phần thay đổi bộ mặt Dược liệu sạch của Việt Nam.</p><p style="text-align:center;"><img src="/images/tam-nhin.png" alt="Tầm nhìn Bà Đen Farm" style="width:100%; max-width:850px; display:inline-block; margin:24px auto; border-radius:12px; box-shadow: 0 4px 20px rgba(0,0,0,0.12);" /></p><h3>TẦM NHÌN (VISION)</h3><p>Trở thành đơn vị uy tín và tiên phong về thị trường Dược liệu sạch của Việt Nam. Ước mơ đưa Dược liệu Việt Nam vươn tầm thế giới (Nhật Bản, Hàn Quốc, Châu Âu, Mỹ và Úc).</p>`,
+    cover_image_url: "/images/su-menh.png",
+    category: { id: "cat-b2", name: "Doanh nghiệp & Hoạt động", slug: "doanh-nghiep-hoat-dong" },
+    author_name: "Ban Quản Trị Bà Đen Farm",
+    tags: [{ id: "t3", name: "BàĐenFarm", slug: "ba-den-farm" }, { id: "t4", name: "SứMệnh", slug: "su-menh" }],
+    published_at: "2026-09-12T09:00:00Z",
+    disclaimer: "Profile chính thức của Công ty Cổ phần Bà Đen Farm.",
+    seo: { title: "Sứ mệnh & Tầm nhìn Bà Đen Farm", description: "Hành trình phát triển Sâm Bố Chính Tây Ninh.", robots: "index,follow" },
+    json_ld: [],
+    related: [],
+  },
+  {
+    id: "post-lich-su-sam-bo-chinh",
+    title: "Lịch sử 300 năm Sâm Bố Chính — Loại Nhân Sâm Tiến Vua Quý Giá",
+    slug: "lich-su-300-nam-sam-bo-chinh",
+    excerpt: "Nguồn gốc lịch sử loài sâm Châu Bố Chính được ghi danh trong cuốn sách kinh điển 'Những cây thuốc vị thuốc Việt Nam'.",
+    content: `<p>Cách đây hơn 300 năm có 01 loại nhân Sâm được phát hiện và sử dụng lần đầu tiên làm dược liệu ở Châu Bố Chính (nay là vùng Bố Trạch, Quảng Bình). Sâm Bố Chính hay còn được gọi là: sâm Tiến Vua, thổ hào sâm, sâm núi... có tên khoa học là Abelmoschus sagittifolius.</p><p style="text-align:center;"><img src="/images/products/sam-say.png" alt="Sâm Bố Chính sấy thăng hoa" style="width:100%; max-width:600px; display:inline-block; margin:24px auto; border-radius:12px;" /></p><h3>Dược tính sánh ngang Sâm Cao Ly Hàn Quốc</h3><p>Từ lâu, cây sâm Bố Chính đã được đánh giá là một vị thuốc quý, được ghi trong cuốn sách nổi tiếng “Những cây thuốc vị thuốc Việt Nam” của GS. Đỗ Tất Lợi. Trong sâm Bố Chính chứa Saponin triterpenoid có tác dụng tăng lực, chống suy nhược thần kinh, giúp bồi bổ cơ thể rất tốt.</p>`,
+    cover_image_url: "/images/products/sam-say.png",
+    category: { id: "cat-b1", name: "Kiến thức Dược liệu", slug: "kien-thuc-duoc-lieu" },
+    author_name: "Dược Sĩ Bà Đen Farm",
+    tags: [{ id: "t1", name: "SâmBốChính", slug: "sam-bo-chinh" }],
+    published_at: "2026-09-08T10:00:00Z",
+    disclaimer: "Tài liệu lịch sử dược học Việt Nam.",
+    seo: { title: "Lịch sử 300 năm Sâm Bố Chính", description: "Lịch sử loài sâm Tiến Vua nổi tiếng.", robots: "index,follow" },
+    json_ld: [],
+    related: [],
+  },
+  {
+    id: "post-huong-dan-su-dung-sam",
+    title: "Hướng dẫn 5 Cách Chế biến & Thưởng thức Sâm Bố Chính Bồi bổ Gia đình",
+    slug: "huong-dan-su-dung-sam-bo-chinh",
+    excerpt: "Gợi ý 5 công thức thưởng thức Bột sâm, Trà hoa sâm, Lẩu sâm dưỡng sinh bồi bổ sức khỏe cho cả gia đình.",
+    content: `<p>Sâm Bố Chính Bà Đen Farm là dược liệu lành tính, vị ngọt thanh mát phù hợp cho cả người già, trẻ nhỏ và người làm việc căng thẳng. Dưới đây là 5 cách thưởng thức thơm ngon dễ làm nhất:</p><p style="text-align:center;"><img src="/images/products/tra-hoa-sam.png" alt="Trà Hoa Sâm Tứ Vị" style="width:100%; max-width:600px; display:inline-block; margin:24px auto; border-radius:12px;" /></p><h3>1. Pha Trà Hoa Sâm Tứ Vị</h3><p>Cho 5-6 bông hoa trà sâm vào ly, hãm với 150 - 200ml nước sôi trong 3 - 5 phút. Trà có vị thơm tự nhiên giúp an thần, tạo giấc ngủ sâu.</p><h3>2. Pha Bột Sâm uống buổi sáng</h3><p>Hòa 3-5g Bột Sâm với 150ml nước ấm 70°C, thêm mật ong để bổ sung chất nhầy xương khớp và tăng đề kháng.</p><h3>3. Đắp mặt nạ Bột Sâm dưỡng da</h3><p>Trộn Bột Sâm với mật ong hoặc sữa chua không đường giúp kích thích Collagen, giảm thâm mụn cho phụ nữ.</p>`,
+    cover_image_url: "/images/products/tra-hoa-sam.png",
+    category: { id: "cat-b3", name: "Sức khỏe & Chăm sóc", slug: "suc-khoe-cham-soc" },
+    author_name: "Chuyên Gia Dưỡng Sinh",
+    tags: [{ id: "t5", name: "ChămSócSứcKhỏe", slug: "cham-soc-suc-khoe" }],
+    published_at: "2026-09-06T14:00:00Z",
+    disclaimer: "Cẩm nang dinh dưỡng Bà Đen Farm.",
+    seo: { title: "Hướng dẫn sử dụng Sâm Bố Chính", description: "Các công thức chế biến chế biến Sâm Bố Chính.", robots: "index,follow" },
+    json_ld: [],
+    related: [],
+  }
+];
+
 export const blog = {
   async list(category?: string, page = 1) {
-    const r = await api.get<ApiResponse<PostListItem[]>>("/public/posts", {
-      params: { "danh-muc": category, page },
-    });
-    return { items: r.data.data ?? [], meta: r.data.meta };
+    try {
+      const r = await api.get<ApiResponse<PostListItem[]>>("/public/posts", {
+        params: { "danh-muc": category, page },
+      });
+      if (r.data.data && r.data.data.length > 0) {
+        return { items: r.data.data, meta: r.data.meta };
+      }
+    } catch {
+      // Fallback
+    }
+    const listItems: PostListItem[] = MOCK_POSTS.map((p) => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      excerpt: p.excerpt,
+      cover_image_url: p.cover_image_url,
+      status: "published",
+      category: p.category,
+      published_at: p.published_at,
+      view_count: 120,
+    }));
+    if (category) {
+      const filtered = listItems.filter((i) => i.category.slug === category);
+      return { items: filtered, meta: { total: filtered.length } };
+    }
+    return { items: listItems, meta: { total: listItems.length } };
   },
   async detail(slug: string) {
-    const r = await api.get<ApiResponse<PostDetail>>(`/public/posts/${slug}`);
-    return r.data.data;
+    try {
+      const r = await api.get<ApiResponse<PostDetail>>(`/public/posts/${slug}`);
+      if (r.data.data) return r.data.data;
+    } catch {
+      // Fallback
+    }
+    const found = MOCK_POSTS.find((p) => p.slug === slug);
+    if (!found) return null;
+    return {
+      ...found,
+      related: MOCK_POSTS.filter((p) => p.slug !== slug).slice(0, 3).map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        excerpt: p.excerpt,
+        cover_image_url: p.cover_image_url,
+        status: "published",
+        category: p.category,
+        published_at: p.published_at,
+        view_count: 95,
+      })),
+    };
   },
 };
 
