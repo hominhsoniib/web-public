@@ -3,6 +3,16 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 const FB_URL = "https://www.facebook.com/people/S%C3%A2m-B%E1%BB%91-Ch%C3%ADnh-B%C3%A0-%C4%90en-Farm/100076325312382/";
 
+export const POLICY_ITEMS = [
+  { id: "bao-hanh", label: "Chính Sách Bảo Hành", icon: "🛡️" },
+  { id: "doi-tra", label: "Chính sách đổi trả", icon: "🔄" },
+  { id: "thanh-toan", label: "Chính sách thanh toán", icon: "💳" },
+  { id: "ban-hang", label: "Chính sách bán hàng", icon: "🛒" },
+  { id: "kiem-tra-hang", label: "Chính Sách Kiểm Tra Hàng", icon: "🔍" },
+  { id: "bao-mat", label: "Chính sách bảo mật", icon: "🔒" },
+  { id: "van-chuyen", label: "Chính sách vận chuyển và giao nhận", icon: "🚚" },
+];
+
 const NAV_LINKS = [
   { to: "/", label: "Trang chủ", end: true },
   { to: "/gioi-thieu", label: "Giới thiệu" },
@@ -10,13 +20,15 @@ const NAV_LINKS = [
   { to: "/vung-trong", label: "Vùng trồng" },
   { to: "/dai-ly", label: "Đại lý" },
   { to: "/blog", label: "Blog" },
-  { to: "/dieu-khoan-su-dung", label: "Điều khoản" },
+  { to: "/dieu-khoan-su-dung", label: "ĐIỀU KHOẢN SỬ DỤNG", hasDropdown: true },
   { to: "https://sambochinh.badenfarm.com.vn/", label: "Landing Page", external: true },
   { to: "/lien-he", label: "Liên hệ" },
 ];
 
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobilePolicyOpen, setMobilePolicyOpen] = useState(false);
 
   return (
     <>
@@ -43,6 +55,44 @@ export default function Layout() {
                   </a>
                 );
               }
+
+              if (n.hasDropdown) {
+                return (
+                  <div
+                    key={n.to}
+                    className="nav-dropdown-wrapper"
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                  >
+                    <NavLink
+                      to={n.to}
+                      className={({ isActive }) =>
+                        isActive ? "site-nav-link active" : "site-nav-link"
+                      }
+                    >
+                      <span>{n.label}</span>
+                      <span style={{ fontSize: "10px", marginLeft: "2px", transition: "transform 0.2s ease", transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+                    </NavLink>
+
+                    {dropdownOpen && (
+                      <div className="nav-dropdown-menu">
+                        {POLICY_ITEMS.map((item) => (
+                          <Link
+                            key={item.id}
+                            to={`/dieu-khoan-su-dung?tab=${item.id}`}
+                            className="dropdown-item"
+                            onClick={() => setDropdownOpen(false)}
+                          >
+                            <span className="dropdown-icon">{item.icon}</span>
+                            <span>{item.label}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
               return (
                 <NavLink
                   key={n.to}
@@ -97,6 +147,40 @@ export default function Layout() {
                     </a>
                   );
                 }
+
+                if (n.hasDropdown) {
+                  return (
+                    <div key={n.to}>
+                      <button
+                        className="mobile-nav-link"
+                        style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+                        onClick={() => setMobilePolicyOpen(!mobilePolicyOpen)}
+                      >
+                        <span>{n.label}</span>
+                        <span>{mobilePolicyOpen ? "▲" : "▼"}</span>
+                      </button>
+                      {mobilePolicyOpen && (
+                        <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px", margin: "4px 0" }}>
+                          {POLICY_ITEMS.map((item) => (
+                            <Link
+                              key={item.id}
+                              to={`/dieu-khoan-su-dung?tab=${item.id}`}
+                              style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px" }}
+                              onClick={() => {
+                                setMobileOpen(false);
+                                setMobilePolicyOpen(false);
+                              }}
+                            >
+                              <span>{item.icon}</span>
+                              <span>{item.label}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 return (
                   <NavLink
                     key={n.to}
@@ -117,9 +201,6 @@ export default function Layout() {
                 </Link>
                 <Link to="/faq" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
                   FAQ
-                </Link>
-                <Link to="/dieu-khoan-su-dung" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
-                  Điều khoản sử dụng
                 </Link>
               </div>
             </nav>
@@ -155,13 +236,13 @@ export default function Layout() {
             <Link to="/vung-trong">Vùng trồng</Link>
           </div>
           <div>
-            <h4>Hỗ trợ</h4>
-            <Link to="/dai-ly">Hệ thống đại lý</Link>
-            <Link to="/tuyen-dung">Tuyển dụng</Link>
-            <Link to="/faq">Câu hỏi thường gặp</Link>
-            <Link to="/dieu-khoan-su-dung">Điều khoản sử dụng</Link>
-            <Link to="/lien-he">Liên hệ</Link>
-            <Link to="/portal/login" style={{ color: "var(--gold-400)", fontWeight: 600 }}>🔐 Quản trị Admin</Link>
+            <h4>Điều khoản & Chính sách</h4>
+            {POLICY_ITEMS.slice(0, 5).map((item) => (
+              <Link key={item.id} to={`/dieu-khoan-su-dung?tab=${item.id}`}>
+                {item.label}
+              </Link>
+            ))}
+            <Link to="/dieu-khoan-su-dung" style={{ color: "var(--gold-400)", fontWeight: 600 }}>Xem tất cả điều khoản →</Link>
           </div>
           <div>
             <h4>Liên hệ</h4>
@@ -171,6 +252,9 @@ export default function Layout() {
             </p>
             <p>
               <a href="tel:+84981557957">0981.557.957</a>
+            </p>
+            <p style={{ marginTop: "10px" }}>
+              <Link to="/portal/login" style={{ color: "var(--gold-400)", fontWeight: 600 }}>🔐 Quản trị Admin</Link>
             </p>
           </div>
         </div>
