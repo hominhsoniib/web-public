@@ -2,7 +2,6 @@
 // Maps a source PNG path (as used in <img src>) to the WebP widths available
 // alongside it (e.g. "/images/su-menh.png" -> "/images/su-menh-480w.webp").
 export const imageManifest: Record<string, number[]> = {
-  "/images/logo.jpg": [251],
   "/images/loi-ich-sbc.png": [480, 768, 1200],
   "/images/su-menh.png": [480, 768, 1200],
   "/images/tam-nhin.png": [480, 768, 1200],

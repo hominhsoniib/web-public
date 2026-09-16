@@ -38,7 +38,7 @@ export default function Layout() {
         <div className="container site-header-inner">
           <Link to="/" className="site-logo" onClick={() => setMobileOpen(false)}>
             <ResponsiveImage
-              src="/images/logo.jpg"
+              src="/images/logo-green.png"
               alt="Bà Đen Farm"
               sizes="40px"
               loading="eager"
@@ -225,7 +225,7 @@ export default function Layout() {
           <div>
             <div className="footer-brand" style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
               <ResponsiveImage
-                src="/images/logo.jpg"
+                src="/images/logo-white.png"
                 alt="Bà Đen Farm"
                 sizes="36px"
                 style={{ height: "36px", width: "36px", objectFit: "cover", borderRadius: "6px" }}

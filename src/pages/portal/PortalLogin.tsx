@@ -33,7 +33,7 @@ export default function PortalLogin() {
     <div className="portal-login-page">
       <div className="portal-login-card">
         <div className="portal-login-header">
-          <ResponsiveImage src="/images/logo.jpg" alt="Bà Đen Farm Logo" className="portal-login-logo" sizes="80px" loading="eager" />
+          <ResponsiveImage src="/images/logo-green.png" alt="Bà Đen Farm Logo" className="portal-login-logo" sizes="80px" loading="eager" />
           <h1 className="portal-login-title">Bà Đen Farm</h1>
           <p className="portal-login-subtitle">Hệ thống Quản trị Admin & Portal</p>
         </div>
