@@ -57,47 +57,52 @@ export default function PortalProducts() {
     }
   };
 
-  if (loading) return <div>Đang tải danh sách sản phẩm...</div>;
+  if (loading) return <div style={{ padding: '24px', color: '#64748b' }}>Đang tải danh sách sản phẩm...</div>;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6">
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px', alignItems: 'start' }}>
       {/* Product List */}
-      <div className="flex-1">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Sản phẩm Bán sỉ</h2>
+      <div>
+        <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', marginBottom: '20px' }}>
+          Sản phẩm Bán sỉ Bà Đen Farm
+        </h2>
+
         {orderSuccess && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg flex items-center gap-3">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-            <p className="font-medium">Đặt hàng thành công! Đơn hàng đã được tự động xác nhận và ghi vào công nợ.</p>
+          <div className="portal-alert-success" style={{ marginBottom: '20px' }}>
+            <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+            <span>Đặt hàng thành công! Đơn hàng đã được tự động ghi nhận vào công nợ.</span>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px' }}>
           {products.map(p => (
-            <div key={p.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
-              <div className="h-48 bg-gray-100 flex items-center justify-center p-4">
+            <div key={p.id} className="portal-card" style={{ padding: 0, overflow: 'hidden', marginBottom: 0, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ height: '180px', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
                 {p.image_url ? (
-                  <img src={p.image_url} alt={p.name} className="max-h-full object-contain" />
+                  <img src={p.image_url} alt={p.name} style={{ maxHeight: '100%', objectFit: 'contain' }} />
                 ) : (
-                  <span className="text-gray-400">Chưa có hình</span>
+                  <span style={{ color: '#94a3b8', fontSize: '13px' }}>Chưa có hình</span>
                 )}
               </div>
-              <div className="p-4 flex flex-col flex-1">
-                <p className="text-xs text-gray-500 mb-1">SKU: {p.sku}</p>
-                <h3 className="font-bold text-gray-800 text-lg mb-2 line-clamp-2">{p.name}</h3>
+              <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <p style={{ fontSize: '11px', color: '#94a3b8', margin: '0 0 4px 0' }}>SKU: {p.sku}</p>
+                <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', margin: '0 0 12px 0', lineHeight: '1.3' }}>{p.name}</h3>
                 
-                <div className="mt-auto pt-4 border-t border-gray-100 flex items-end justify-between">
+                <div style={{ marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid #f1f5f9', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                   <div>
                     {p.dealer_price < p.base_price && (
-                      <p className="text-xs text-gray-400 line-through mb-0.5">{formatMoney(p.base_price)}</p>
+                      <p style={{ fontSize: '12px', color: '#94a3b8', textDecoration: 'line-through', margin: 0 }}>{formatMoney(p.base_price)}</p>
                     )}
-                    <p className="font-bold text-green-700 text-lg">{formatMoney(p.dealer_price)} <span className="text-sm font-normal text-gray-500">/{p.unit}</span></p>
+                    <p style={{ fontSize: '16px', fontWeight: 800, color: '#166534', margin: 0 }}>
+                      {formatMoney(p.dealer_price)} <span style={{ fontSize: '12px', fontWeight: 400, color: '#64748b' }}>/{p.unit}</span>
+                    </p>
                   </div>
                   <button 
                     onClick={() => handleAddToCart(p)}
-                    className="p-2 bg-green-50 text-green-700 hover:bg-green-600 hover:text-white rounded transition-colors"
+                    style={{ padding: '8px', background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0', borderRadius: '8px', cursor: 'pointer', display: 'grid', placeItems: 'center' }}
                     title="Thêm vào giỏ"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+                    <svg style={{ width: '18px', height: '18px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
                   </button>
                 </div>
               </div>
@@ -107,53 +112,49 @@ export default function PortalProducts() {
       </div>
 
       {/* Cart Sidebar */}
-      <div className="w-full lg:w-80 shrink-0">
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm sticky top-6">
-          <div className="p-4 border-b border-gray-200 bg-gray-50 rounded-t-xl">
-            <h3 className="font-bold text-gray-800 flex items-center gap-2">
-              <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-              Đơn hàng tạm tính
-            </h3>
-          </div>
-          
-          <div className="p-4 max-h-96 overflow-auto">
-            {cart.length === 0 ? (
-              <p className="text-gray-500 text-sm text-center py-8">Chưa có sản phẩm nào</p>
-            ) : (
-              <ul className="space-y-4">
-                {cart.map(item => (
-                  <li key={item.product_id} className="flex flex-col gap-2">
-                    <p className="text-sm font-medium text-gray-800 line-clamp-2">{item.name}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center border border-gray-300 rounded overflow-hidden">
-                        <button onClick={() => updateQty(item.product_id, -1)} className="px-2 py-0.5 bg-gray-100 hover:bg-gray-200 text-gray-600">-</button>
-                        <span className="px-3 py-0.5 text-sm font-medium min-w-[2rem] text-center">{item.qty}</span>
-                        <button onClick={() => updateQty(item.product_id, 1)} className="px-2 py-0.5 bg-gray-100 hover:bg-gray-200 text-gray-600">+</button>
-                      </div>
-                      <p className="text-sm font-bold text-gray-700">{formatMoney(item.price * item.qty)}</p>
+      <div className="portal-card" style={{ padding: 0, overflow: 'hidden', position: 'sticky', top: '24px' }}>
+        <div style={{ padding: '16px 20px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <svg style={{ width: '18px', height: '18px', color: '#64748b' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a', margin: 0 }}>Đơn hàng tạm tính</h3>
+        </div>
+        
+        <div style={{ padding: '16px', maxHeight: '380px', overflowY: 'auto' }}>
+          {cart.length === 0 ? (
+            <p style={{ color: '#94a3b8', fontSize: '14px', textAlign: 'center', padding: '32px 0' }}>Chưa chọn sản phẩm nào</p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {cart.map(item => (
+                <div key={item.product_id} style={{ display: 'flex', flexDirection: 'column', gap: '6px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                  <p style={{ fontSize: '14px', fontWeight: 600, color: '#1e293b', margin: 0 }}>{item.name}</p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', border: '1px solid #cbd5e1', borderRadius: '6px', overflow: 'hidden' }}>
+                      <button onClick={() => updateQty(item.product_id, -1)} style={{ padding: '2px 8px', background: '#f1f5f9', border: 'none', cursor: 'pointer' }}>-</button>
+                      <span style={{ padding: '2px 10px', fontSize: '13px', fontWeight: 600 }}>{item.qty}</span>
+                      <button onClick={() => updateQty(item.product_id, 1)} style={{ padding: '2px 8px', background: '#f1f5f9', border: 'none', cursor: 'pointer' }}>+</button>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {cart.length > 0 && (
-            <div className="p-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-sm text-gray-600">Tổng cộng:</span>
-                <span className="text-lg font-bold text-red-600">{formatMoney(cartTotal)}</span>
-              </div>
-              <button 
-                onClick={submitOrder}
-                disabled={ordering}
-                className="w-full py-2.5 bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold rounded-lg transition-colors disabled:opacity-50"
-              >
-                {ordering ? "Đang xử lý..." : "Xác nhận & Ghi nợ"}
-              </button>
+                    <p style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', margin: 0 }}>{formatMoney(item.price * item.qty)}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
+
+        {cart.length > 0 && (
+          <div style={{ padding: '16px', background: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <span style={{ fontSize: '14px', color: '#64748b' }}>Tổng cộng:</span>
+              <span style={{ fontSize: '18px', fontWeight: 800, color: '#dc2626' }}>{formatMoney(cartTotal)}</span>
+            </div>
+            <button 
+              onClick={submitOrder}
+              disabled={ordering}
+              style={{ width: '100%', padding: '12px', background: '#eab308', color: '#0c2e12', fontWeight: 800, border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+            >
+              {ordering ? "Đang xử lý..." : "Xác nhận & Ghi nợ"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

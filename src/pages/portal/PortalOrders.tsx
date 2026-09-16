@@ -24,76 +24,79 @@ export default function PortalOrders() {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
   };
 
-  const statusMap: Record<string, { label: string, color: string }> = {
-    draft: { label: "Bản nháp", color: "bg-gray-100 text-gray-800" },
-    confirmed: { label: "Đã xác nhận", color: "bg-blue-100 text-blue-800" },
-    shipping: { label: "Đang giao", color: "bg-yellow-100 text-yellow-800" },
-    completed: { label: "Hoàn thành", color: "bg-green-100 text-green-800" },
-    cancelled: { label: "Đã hủy", color: "bg-red-100 text-red-800" },
+  const statusMap: Record<string, { label: string, bg: string, color: string }> = {
+    draft: { label: "Bản nháp", bg: "#f1f5f9", color: "#475569" },
+    confirmed: { label: "Đã xác nhận", bg: "#eff6ff", color: "#1d4ed8" },
+    shipping: { label: "Đang giao", bg: "#fef9c3", color: "#854d0e" },
+    completed: { label: "Hoàn thành", bg: "#f0fdf4", color: "#166534" },
+    cancelled: { label: "Đã hủy", bg: "#fef2f2", color: "#991b1b" },
   };
 
-  if (loading) return <div>Đang tải lịch sử đơn hàng...</div>;
+  if (loading) return <div style={{ padding: '24px', color: '#64748b' }}>Đang tải lịch sử đơn hàng...</div>;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="p-6 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
-        <h2 className="text-xl font-bold text-gray-800">Lịch sử Đơn hàng</h2>
-        <div className="flex gap-2">
+    <div className="portal-card" style={{ padding: 0, overflow: 'hidden' }}>
+      <div style={{ padding: '20px 24px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', margin: 0 }}>Lịch sử Đơn hàng B2B</h2>
+        <div style={{ display: 'flex', gap: '8px' }}>
           <button 
             onClick={() => portalApi.exportOrders('excel')}
-            className="px-4 py-2 text-sm font-medium text-green-700 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors"
+            style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 600, color: '#166534', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px', cursor: 'pointer' }}
           >
             Xuất Excel
           </button>
           <button 
             onClick={() => portalApi.exportOrders('pdf')}
-            className="px-4 py-2 text-sm font-medium text-red-700 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
+            style={{ padding: '8px 14px', fontSize: '13px', fontWeight: 600, color: '#991b1b', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '8px', cursor: 'pointer' }}
           >
             Xuất PDF
           </button>
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500">
-              <th className="p-4 font-medium">Mã đơn</th>
-              <th className="p-4 font-medium">Ngày đặt</th>
-              <th className="p-4 font-medium">Trạng thái</th>
-              <th className="p-4 font-medium">Địa chỉ giao</th>
-              <th className="p-4 font-medium text-right">Tổng tiền</th>
+            <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontSize: '12px', textTransform: 'uppercase', color: '#64748b', letterSpacing: '0.05em' }}>
+              <th style={{ padding: '14px 20px', fontWeight: 600 }}>Mã đơn</th>
+              <th style={{ padding: '14px 20px', fontWeight: 600 }}>Ngày đặt</th>
+              <th style={{ padding: '14px 20px', fontWeight: 600 }}>Trạng thái</th>
+              <th style={{ padding: '14px 20px', fontWeight: 600 }}>Địa chỉ giao</th>
+              <th style={{ padding: '14px 20px', fontWeight: 600, textAlign: 'right' }}>Tổng tiền</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 text-sm">
+          <tbody style={{ fontSize: '14px', color: '#334155' }}>
             {orders.length === 0 ? (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-gray-500">
-                  Bạn chưa có đơn hàng nào.
+                <td colSpan={5} style={{ padding: '32px', textAlign: 'center', color: '#94a3b8' }}>
+                  Chưa có đơn hàng nào được tạo.
                 </td>
               </tr>
             ) : (
-              orders.map(order => (
-                <tr key={order.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="p-4 font-medium text-green-700">{order.order_no}</td>
-                  <td className="p-4 text-gray-600">
-                    {new Date(order.created_at).toLocaleDateString('vi-VN', {
-                      hour: '2-digit', minute: '2-digit'
-                    })}
-                  </td>
-                  <td className="p-4">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${statusMap[order.status]?.color || "bg-gray-100 text-gray-800"}`}>
-                      {statusMap[order.status]?.label || order.status}
-                    </span>
-                  </td>
-                  <td className="p-4 text-gray-600 max-w-xs truncate" title={order.shipping_address}>
-                    {order.shipping_address || "Mặc định"}
-                  </td>
-                  <td className="p-4 font-bold text-gray-800 text-right">
-                    {formatMoney(order.total_amount)}
-                  </td>
-                </tr>
-              ))
+              orders.map(order => {
+                const st = statusMap[order.status] || { label: order.status, bg: "#f1f5f9", color: "#475569" };
+                return (
+                  <tr key={order.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                    <td style={{ padding: '14px 20px', fontWeight: 700, color: '#166534' }}>{order.order_no}</td>
+                    <td style={{ padding: '14px 20px', color: '#64748b' }}>
+                      {new Date(order.created_at).toLocaleDateString('vi-VN', {
+                        hour: '2-digit', minute: '2-digit'
+                      })}
+                    </td>
+                    <td style={{ padding: '14px 20px' }}>
+                      <span style={{ padding: '4px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: 700, background: st.bg, color: st.color }}>
+                        {st.label}
+                      </span>
+                    </td>
+                    <td style={{ padding: '14px 20px', color: '#64748b' }} title={order.shipping_address}>
+                      {order.shipping_address || "Mặc định"}
+                    </td>
+                    <td style={{ padding: '14px 20px', fontWeight: 700, color: '#0f172a', textAlign: 'right' }}>
+                      {formatMoney(order.total_amount)}
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
