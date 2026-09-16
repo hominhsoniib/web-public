@@ -1,8 +1,24 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Seo from "../components/Seo";
 
 const SITE = import.meta.env.VITE_SITE_URL ?? "http://localhost:4174";
+
+const CERTIFICATES = [
+  { title: "Giấy chứng nhận OCOP 4 Sao — Bột Sâm Bố Chính", src: "/images/ocop/1. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Trà Sâm Bà Đen", src: "/images/ocop/2. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Rượu Sâm Bố Chính", src: "/images/ocop/3. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Cao Sâm Bố Chính", src: "/images/ocop/4. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Sâm Sấy Khô", src: "/images/ocop/5. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Trà Hoa Sâm", src: "/images/ocop/6. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Lẩu Sâm Dưỡng Sinh", src: "/images/ocop/7. sp ocop.png" },
+  { title: "Giấy chứng nhận Cơ sở đủ điều kiện An toàn Thực phẩm", src: "/images/ocop/Giay ATVSTP.png" },
+  { title: "Chứng nhận Sản phẩm Nông nghiệp Tiêu biểu Cấp Tỉnh", src: "/images/ocop/1. CC SP tieu bieu.jpg" },
+  { title: "Bằng khen Sản phẩm Nông nghiệp Tiêu biểu", src: "/images/ocop/sp tieu bieu.png" },
+  { title: "Chứng nhận Top Sản phẩm Tiêu biểu 2022", src: "/images/ocop/sp top.png" },
+  { title: "Chứng nhận Top Sản phẩm Tiêu biểu 2023", src: "/images/ocop/sp top 2.png" },
+];
 
 const VALUES = [
   {
@@ -39,6 +55,8 @@ const MILESTONES = [
 ];
 
 export default function About() {
+  const [selectedCert, setSelectedCert] = useState<{ title: string; src: string } | null>(null);
+
   return (
     <>
       <Seo
@@ -183,6 +201,128 @@ export default function About() {
         </div>
       </section>
 
+      {/* Bộ sưu tập Chứng nhận OCOP 4 sao & Danh hiệu */}
+      <section className="container section" style={{ paddingTop: 0 }}>
+        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+          <span className="section-label">Hồ sơ pháp lý & Uy tín</span>
+          <h2 style={{ fontSize: '30px', margin: '8px 0 12px', color: 'var(--green-900)' }}>Chứng Nhận OCOP 4 Sao & Bằng Khen Tiêu Biểu</h2>
+          <p style={{ color: 'var(--text-soft)', maxWidth: '720px', margin: '0 auto' }}>
+            Toàn bộ sản phẩm Sâm Bố Chính Bà Đen Farm đều đạt chứng nhận OCOP 4 Sao do UBND tỉnh Tây Ninh trao tặng, cùng chứng nhận An toàn Thực phẩm & Bằng khen tiêu biểu. Click vào hình để xem chi tiết.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
+          {CERTIFICATES.map((cert, index) => (
+            <div
+              key={index}
+              onClick={() => setSelectedCert(cert)}
+              style={{
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius)',
+                padding: '16px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: 'var(--shadow)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.12)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'var(--shadow)';
+              }}
+            >
+              <div style={{ width: '100%', height: '260px', overflow: 'hidden', borderRadius: 'var(--radius-sm)', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img
+                  src={cert.src}
+                  alt={cert.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                />
+              </div>
+              <h4 style={{ fontSize: '14px', fontWeight: 600, marginTop: '12px', color: 'var(--text)', lineHeight: '1.4' }}>
+                {cert.title}
+              </h4>
+              <span style={{ fontSize: '12px', color: 'var(--green-700)', marginTop: '6px', fontWeight: 500 }}>
+                🔍 Click xem phóng to
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Lightbox Modal phóng to hình ảnh chứng nhận */}
+      {selectedCert && (
+        <div
+          onClick={() => setSelectedCert(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(0, 0, 0, 0.85)',
+            backdropFilter: 'blur(4px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px'
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'relative',
+              maxWidth: '900px',
+              maxHeight: '90vh',
+              background: '#fff',
+              borderRadius: '16px',
+              padding: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+              overflow: 'hidden'
+            }}
+          >
+            <button
+              onClick={() => setSelectedCert(null)}
+              style={{
+                position: 'absolute',
+                top: '16px',
+                right: '16px',
+                background: 'rgba(0,0,0,0.1)',
+                border: 'none',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                fontSize: '20px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#333'
+              }}
+            >
+              ✕
+            </button>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--green-900)', marginBottom: '16px', paddingRight: '40px', textAlign: 'center' }}>
+              {selectedCert.title}
+            </h3>
+            <div style={{ flex: 1, overflow: 'auto', display: 'flex', justifyContent: 'center', width: '100%' }}>
+              <img
+                src={selectedCert.src}
+                alt={selectedCert.title}
+                style={{ maxWidth: '100%', maxHeight: '72vh', objectFit: 'contain', borderRadius: '8px' }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* CTA */}
       <section className="about-cta-section">
         <div className="container about-cta-inner">
@@ -203,3 +343,4 @@ export default function About() {
     </>
   );
 }
+
