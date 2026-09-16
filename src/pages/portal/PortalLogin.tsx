@@ -6,6 +6,7 @@ export default function PortalLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -57,14 +58,25 @@ export default function PortalLogin() {
             
             <div className="portal-form-group">
               <label>Mật khẩu</label>
-              <input
-                type="password"
-                required
-                placeholder="••••••••"
-                className="portal-input"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-              />
+              <div className="portal-password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  placeholder="••••••••"
+                  className="portal-input"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="portal-eye-btn"
+                  title={showPassword ? "Ẩn mật khẩu" : "Hiển thị mật khẩu"}
+                  aria-label="Bật/tắt hiển thị mật khẩu"
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
             
             <button
