@@ -30,7 +30,7 @@ import PortalSettings from "./pages/portal/PortalSettings";
 import "./styles/tokens.css";
 import "./styles/site.css";
 import "./styles/pages.css";
-import "./styles/portal-tailwind.css";
+import "./styles/portal.css";
 
 const router = createBrowserRouter([
   {

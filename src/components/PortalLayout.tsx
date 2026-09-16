@@ -49,78 +49,68 @@ export default function PortalLayout() {
   if (!profile) return null;
 
   return (
-    <div className="flex min-h-screen bg-gray-50 font-sans">
+    <div className="portal-admin-layout">
       {/* Sidebar */}
-      <aside className="w-64 bg-green-900 text-white flex flex-col">
-        <div className="p-6">
-          <h2 className="text-xl font-bold tracking-tight text-yellow-500">Sâm Bà Đen</h2>
-          <p className="text-sm font-medium opacity-80 uppercase mt-1">B2B Dealer Portal</p>
-        </div>
-        
-        <div className="px-6 mb-6">
-          <div className="bg-green-800/50 rounded p-4 text-sm border border-green-700">
-            <p className="text-gray-300">Đại lý:</p>
-            <p className="font-bold text-white truncate" title={profile.name}>{profile.name}</p>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/30">
-                {profile.tier.toUpperCase()}
-              </span>
-              <span className="text-xs text-gray-300">{profile.code}</span>
-            </div>
+      <aside className="portal-sidebar">
+        <div className="portal-sidebar-brand">
+          <img src="/images/logo.jpg" alt="Bà Đen Farm Logo" />
+          <div>
+            <h2>Bà Đen Farm</h2>
+            <p>Hệ Thống Admin CMS</p>
           </div>
         </div>
 
-        <nav className="flex-1 px-4 space-y-2">
-          <Link to="/portal" className={`block px-4 py-2 rounded transition-colors ${location.pathname === '/portal' ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
-            Bảng điều khiển
+        <nav className="portal-sidebar-nav">
+          <Link to="/portal" className={`portal-nav-link ${location.pathname === '/portal' ? 'active' : ''}`}>
+            📊 Bảng điều khiển
           </Link>
-          <Link to="/portal/posts" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/posts') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
+          <Link to="/portal/posts" className={`portal-nav-link ${location.pathname.startsWith('/portal/posts') ? 'active' : ''}`}>
             📝 Quản lý Bài viết Blog
           </Link>
-          <Link to="/portal/products" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/products') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
+          <Link to="/portal/products" className={`portal-nav-link ${location.pathname.startsWith('/portal/products') ? 'active' : ''}`}>
             📦 Quản lý Sản phẩm
           </Link>
-          <Link to="/portal/orders" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/orders') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
+          <Link to="/portal/orders" className={`portal-nav-link ${location.pathname.startsWith('/portal/orders') ? 'active' : ''}`}>
             🛒 Quản lý Đơn hàng
           </Link>
-          <Link to="/portal/settings" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/settings') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
+          <Link to="/portal/settings" className={`portal-nav-link ${location.pathname.startsWith('/portal/settings') ? 'active' : ''}`}>
             ⚙️ Cấu hình Website
           </Link>
-          <Link to="/portal/ledger" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/ledger') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
+          <Link to="/portal/ledger" className={`portal-nav-link ${location.pathname.startsWith('/portal/ledger') ? 'active' : ''}`}>
             💳 Công nợ & Thanh toán
           </Link>
         </nav>
 
-        <div className="p-4 mt-auto">
+        <div className="portal-sidebar-footer">
           <button 
             onClick={handleLogout}
-            className="w-full py-2 px-4 bg-red-600/20 text-red-400 hover:bg-red-600/40 hover:text-white rounded transition-colors text-sm font-medium"
+            className="portal-btn-logout"
           >
-            Đăng xuất
+            🚪 Đăng xuất
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col">
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center px-8 justify-between shrink-0 shadow-sm">
-          <h1 className="text-lg font-semibold text-gray-800">
-            {location.pathname === '/portal' && "Bảng điều khiển"}
-            {location.pathname.startsWith('/portal/products') && "Danh mục Sản phẩm Sỉ"}
-            {location.pathname.startsWith('/portal/orders') && "Quản lý Đơn hàng"}
-            {location.pathname.startsWith('/portal/ledger') && "Sổ cái Công nợ"}
+      <main className="portal-main-area">
+        <header className="portal-top-bar">
+          <h1 className="portal-top-bar-title">
+            {location.pathname === '/portal' && "Bảng điều khiển Tổng quan"}
+            {location.pathname.startsWith('/portal/posts') && "Quản lý Bài viết & Nội dung Blog"}
+            {location.pathname.startsWith('/portal/products') && "Quản lý Danh mục Sản phẩm"}
+            {location.pathname.startsWith('/portal/orders') && "Quản lý Đơn hàng & Đại lý"}
+            {location.pathname.startsWith('/portal/settings') && "Cấu hình Nội dung Website"}
+            {location.pathname.startsWith('/portal/ledger') && "Quản lý Sổ cái & Thanh toán"}
           </h1>
-          <div className="flex items-center gap-4 text-sm">
-            <div className="text-right">
-              <p className="text-gray-500">Số dư nợ hiện tại</p>
-              <p className={`font-bold text-lg ${profile.balance > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(profile.balance)}
-              </p>
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <span style={{ fontSize: '14px', color: '#64748b' }}>Xin chào, <strong>{profile.name}</strong></span>
+            <Link to="/" target="_blank" style={{ fontSize: '13px', color: '#15803d', fontWeight: 600, textDecoration: 'none' }}>
+              🌐 Xem Trang Web
+            </Link>
           </div>
         </header>
 
-        <div className="p-8 flex-1 overflow-auto bg-gray-50/50">
+        <div className="portal-content-body">
           <Outlet context={{ profile }} />
         </div>
       </main>
