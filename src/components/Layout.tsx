@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { to: "/vung-trong", label: "Vùng trồng" },
   { to: "/dai-ly", label: "Đại lý" },
   { to: "/blog", label: "Blog" },
-  { to: "http://localhost:8000/landing/index.html", label: "Landing Page", external: true },
+  { to: "https://sambochinh.badenfarm.com.vn/", label: "Landing Page", external: true },
   { to: "/lien-he", label: "Liên hệ" },
 ];
 

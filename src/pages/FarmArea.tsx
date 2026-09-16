@@ -36,11 +36,7 @@ export default function FarmArea() {
       />
 
       {/* Hero */}
-      <section className="farm-hero" style={{
-        backgroundImage: 'linear-gradient(180deg, rgba(12,46,18,0.72) 0%, rgba(12,46,18,0.88) 100%), url("http://localhost:8000/files/images/vuon_sam_1.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      }}>
+      <section className="farm-hero">
         <div className="container farm-hero-inner">
           <nav className="breadcrumb breadcrumb-light">
             <Link to="/">Trang chủ</Link> <span>/</span> <span>Vùng trồng</span>
@@ -58,7 +54,7 @@ export default function FarmArea() {
       <section className="container section">
         <div className="farm-intro-grid">
           <div className="farm-intro-visual" style={{ position: "relative", overflow: "hidden", borderRadius: "12px", minHeight: "300px" }}>
-            <img src="http://localhost:8000/files/images/vuon_sam_2.jpg" alt="Vùng trồng Sâm Bà Đen" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+            <img src="/images/products/sam-say.png" alt="Vùng trồng Sâm Bà Đen" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
             <div className="farm-map-placeholder" style={{
               position: "absolute",
               inset: 0,
