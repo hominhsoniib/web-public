@@ -72,7 +72,7 @@ export default function About() {
         <div className="about-hero-overlay" aria-hidden="true" />
       </section>
 
-      {/* Sứ mệnh & Tầm nhìn */}
+      {/* Sứ mệnh - Trang 1 Full-Width */}
       <section className="container section">
         <div className="about-mission-grid">
           <div className="about-mission-text">
@@ -110,31 +110,36 @@ export default function About() {
           </div>
         </div>
 
-        {/* Infographic Sứ mệnh & Tầm nhìn */}
-        <div style={{ marginTop: '48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
-          <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '24px', boxShadow: 'var(--shadow)' }}>
-            <span className="section-label">Nền tảng</span>
-            <h3 style={{ fontSize: '22px', margin: '8px 0 16px', color: 'var(--green-800)' }}>Sứ Mệnh (Mission)</h3>
-            <p style={{ color: 'var(--text-soft)', marginBottom: '16px', fontSize: '15px', lineHeight: '1.6' }}>
-              Xây dựng Sâm Bố Chính trở thành thương hiệu đặc sản của Tây Ninh và thương hiệu quốc gia Việt Nam. Mang lại lợi ích kinh tế bền vững cho người nông dân địa phương.
-            </p>
+        {/* Khối Sứ Mệnh - Full Width */}
+        <div style={{ marginTop: '48px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '32px 24px', boxShadow: 'var(--shadow)', textAlign: 'center' }}>
+          <span className="section-label" style={{ display: 'inline-block', marginBottom: '8px' }}>Nền tảng phát triển</span>
+          <h2 style={{ fontSize: '28px', color: 'var(--green-800)', marginBottom: '16px' }}>SỨ MỆNH (MISSION) — BÀ ĐEN FARM</h2>
+          <p style={{ color: 'var(--text-soft)', maxWidth: '800px', margin: '0 auto 28px', fontSize: '16px', lineHeight: '1.7' }}>
+            "Vì sức khỏe cộng đồng, lan tỏa giá trị dược liệu Việt và xây dựng nền nông nghiệp bền vững từ Sâm Bố Chính tại Tây Ninh."
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <img 
               src="/images/su-menh.png" 
-              alt="Sứ mệnh Công ty Cổ phần Bà Đen Farm" 
-              style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }} 
+              alt="Infographic Sứ mệnh Bà Đen Farm" 
+              style={{ width: '100%', maxWidth: '1050px', height: 'auto', borderRadius: '12px', boxShadow: '0 6px 24px rgba(0,0,0,0.1)', border: '1px solid var(--border)' }} 
             />
           </div>
+        </div>
+      </section>
 
-          <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '24px', boxShadow: 'var(--shadow)' }}>
-            <span className="section-label">Định hướng</span>
-            <h3 style={{ fontSize: '22px', margin: '8px 0 16px', color: 'var(--green-800)' }}>Tầm Nhìn (Vision)</h3>
-            <p style={{ color: 'var(--text-soft)', marginBottom: '16px', fontSize: '15px', lineHeight: '1.6' }}>
-              Trở thành đơn vị uy tín và tiên phong trong ngành Dược liệu sạch tại Việt Nam. Đưa sản phẩm Dược liệu Việt Nam vươn tầm quốc tế (Nhật Bản, Hàn Quốc, Mỹ, Châu Âu, Úc).
-            </p>
+      {/* Tầm nhìn - Trang 2 Full-Width */}
+      <section className="container section" style={{ paddingTop: 0 }}>
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '32px 24px', boxShadow: 'var(--shadow)', textAlign: 'center' }}>
+          <span className="section-label" style={{ display: 'inline-block', marginBottom: '8px' }}>Định hướng chiến lược</span>
+          <h2 style={{ fontSize: '28px', color: 'var(--green-800)', marginBottom: '16px' }}>TẦM NHÌN (VISION) — BÀ ĐEN FARM</h2>
+          <p style={{ color: 'var(--text-soft)', maxWidth: '850px', margin: '0 auto 28px', fontSize: '16px', lineHeight: '1.7' }}>
+            Trở thành đơn vị uy tín và tiên phong trong ngành Dược liệu sạch tại Việt Nam. Khát vọng đưa sản phẩm Dược liệu Việt Nam vươn tầm quốc tế (Nhật Bản, Hàn Quốc, Mỹ, Châu Âu và Úc).
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <img 
               src="/images/tam-nhin.png" 
-              alt="Tầm nhìn Công ty Cổ phần Bà Đen Farm" 
-              style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)' }} 
+              alt="Infographic Tầm nhìn Bà Đen Farm" 
+              style={{ width: '100%', maxWidth: '1050px', height: 'auto', borderRadius: '12px', boxShadow: '0 6px 24px rgba(0,0,0,0.1)', border: '1px solid var(--border)' }} 
             />
           </div>
         </div>
