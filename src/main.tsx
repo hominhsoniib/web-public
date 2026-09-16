@@ -16,6 +16,7 @@ import PostDetail from "./pages/PostDetail";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
 import QRVerify from "./pages/QRVerify";
+import TermsOfService from "./pages/TermsOfService";
 
 import PortalLayout from "./components/PortalLayout";
 import PortalLogin from "./pages/portal/PortalLogin";
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
       { path: "lien-he", element: <Contact /> },
       { path: "tuyen-dung", element: <Careers /> },
       { path: "faq", element: <FAQ /> },
+      { path: "dieu-khoan-su-dung", element: <TermsOfService /> },
       { path: "qr/:token", element: <QRVerify /> },
     ],
   },

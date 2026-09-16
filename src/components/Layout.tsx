@@ -117,6 +117,9 @@ export default function Layout() {
                 <Link to="/faq" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
                   FAQ
                 </Link>
+                <Link to="/dieu-khoan-su-dung" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
+                  Điều khoản sử dụng
+                </Link>
               </div>
             </nav>
           </div>
@@ -155,6 +158,7 @@ export default function Layout() {
             <Link to="/dai-ly">Hệ thống đại lý</Link>
             <Link to="/tuyen-dung">Tuyển dụng</Link>
             <Link to="/faq">Câu hỏi thường gặp</Link>
+            <Link to="/dieu-khoan-su-dung">Điều khoản sử dụng</Link>
             <Link to="/lien-he">Liên hệ</Link>
             <Link to="/portal/login" style={{ color: "var(--gold-400)", fontWeight: 600 }}>🔐 Quản trị Admin</Link>
           </div>
