@@ -156,6 +156,7 @@ export default function Layout() {
             <Link to="/tuyen-dung">Tuyển dụng</Link>
             <Link to="/faq">Câu hỏi thường gặp</Link>
             <Link to="/lien-he">Liên hệ</Link>
+            <Link to="/portal/login" style={{ color: "var(--gold-400)", fontWeight: 600 }}>🔐 Quản trị Admin</Link>
           </div>
           <div>
             <h4>Liên hệ</h4>

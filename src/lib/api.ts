@@ -145,7 +145,10 @@ export const blog = {
     } catch {
       // Fallback
     }
-    const listItems: PostListItem[] = MOCK_POSTS.map((p) => ({
+    const customPostsRaw = localStorage.getItem("custom_mock_posts");
+    const activePosts: PostDetail[] = customPostsRaw ? JSON.parse(customPostsRaw) : MOCK_POSTS;
+
+    const listItems: PostListItem[] = activePosts.map((p) => ({
       id: p.id,
       title: p.title,
       slug: p.slug,
@@ -169,11 +172,14 @@ export const blog = {
     } catch {
       // Fallback
     }
-    const found = MOCK_POSTS.find((p) => p.slug === slug);
+    const customPostsRaw = localStorage.getItem("custom_mock_posts");
+    const activePosts: PostDetail[] = customPostsRaw ? JSON.parse(customPostsRaw) : MOCK_POSTS;
+
+    const found = activePosts.find((p) => p.slug === slug);
     if (!found) return null;
     return {
       ...found,
-      related: MOCK_POSTS.filter((p) => p.slug !== slug).slice(0, 3).map((p) => ({
+      related: activePosts.filter((p) => p.slug !== slug).slice(0, 3).map((p) => ({
         id: p.id,
         title: p.title,
         slug: p.slug,

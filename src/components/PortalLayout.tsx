@@ -74,14 +74,20 @@ export default function PortalLayout() {
           <Link to="/portal" className={`block px-4 py-2 rounded transition-colors ${location.pathname === '/portal' ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
             Bảng điều khiển
           </Link>
+          <Link to="/portal/posts" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/posts') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
+            📝 Quản lý Bài viết Blog
+          </Link>
           <Link to="/portal/products" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/products') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
-            Đặt hàng B2B
+            📦 Quản lý Sản phẩm
           </Link>
           <Link to="/portal/orders" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/orders') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
-            Lịch sử Đơn hàng
+            🛒 Quản lý Đơn hàng
+          </Link>
+          <Link to="/portal/settings" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/settings') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
+            ⚙️ Cấu hình Website
           </Link>
           <Link to="/portal/ledger" className={`block px-4 py-2 rounded transition-colors ${location.pathname.startsWith('/portal/ledger') ? 'bg-green-800 font-medium' : 'hover:bg-green-800/50 text-gray-300 hover:text-white'}`}>
-            Công nợ & Thanh toán
+            💳 Công nợ & Thanh toán
           </Link>
         </nav>
 
