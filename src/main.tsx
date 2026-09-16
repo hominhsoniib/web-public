@@ -27,6 +27,7 @@ import PortalLedger from "./pages/portal/PortalLedger";
 import PortalPaymentCallback from "./pages/portal/PortalPaymentCallback";
 import PortalPosts from "./pages/portal/PortalPosts";
 import PortalSettings from "./pages/portal/PortalSettings";
+import PortalPolicies from "./pages/portal/PortalPolicies";
 
 import "./styles/tokens.css";
 import "./styles/site.css";
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
       { index: true, element: <PortalDashboard /> },
       { path: "login", element: <PortalLogin /> },
       { path: "posts", element: <PortalPosts /> },
+      { path: "policies", element: <PortalPolicies /> },
       { path: "products", element: <PortalProducts /> },
       { path: "orders", element: <PortalOrders /> },
       { path: "settings", element: <PortalSettings /> },
