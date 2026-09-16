@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+import { versionedImageSrc } from "../../lib/assetVersion";
 import { portalApi, type PortalProduct } from "../../lib/portalApi";
 
 export default function PortalProducts() {
@@ -79,7 +81,7 @@ export default function PortalProducts() {
             <div key={p.id} className="portal-card" style={{ padding: 0, overflow: 'hidden', marginBottom: 0, display: 'flex', flexDirection: 'column' }}>
               <div style={{ height: '180px', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
                 {p.image_url ? (
-                  <img src={p.image_url} alt={p.name} style={{ maxHeight: '100%', objectFit: 'contain' }} />
+                  <img src={p.image_url ? versionedImageSrc(p.image_url) : undefined} alt={p.name} loading="lazy" style={{ maxHeight: '100%', objectFit: 'contain' }} />
                 ) : (
                   <span style={{ color: '#94a3b8', fontSize: '13px' }}>Chưa có hình</span>
                 )}

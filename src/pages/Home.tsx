@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
 import { blog, fmtDate, product, type PostListItem, type ProductListItem } from "../lib/api";
 import { fmtVnd } from "../lib/api";
@@ -88,7 +89,11 @@ export default function Home() {
               <Link key={p.id} to={`/san-pham/${p.slug}`} className="prod-card">
                 <div className="prod-card-img">
                   {p.primary_image ? (
-                    <img src={p.primary_image} alt={p.name} />
+                    <ResponsiveImage
+                      src={p.primary_image}
+                      alt={p.name}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
                   ) : (
                     <div className="prod-card-ph">SBĐ</div>
                   )}
@@ -127,7 +132,11 @@ export default function Home() {
               <Link key={p.id} to={`/blog/${p.slug}`} className="post-card">
                 <div className="post-card-cover">
                   {p.cover_image_url ? (
-                    <img src={p.cover_image_url} alt={p.title} />
+                    <ResponsiveImage
+                      src={p.cover_image_url}
+                      alt={p.title}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
                   ) : (
                     <div className="post-card-placeholder">SBĐ</div>
                   )}

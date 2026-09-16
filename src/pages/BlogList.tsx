@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
+import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
 import { blog, fmtDate, type PostListItem } from "../lib/api";
 
@@ -60,7 +61,11 @@ export default function BlogList() {
               <Link key={p.id} to={`/blog/${p.slug}`} className="post-card">
                 <div className="post-card-cover">
                   {p.cover_image_url ? (
-                    <img src={p.cover_image_url} alt={p.title} />
+                    <ResponsiveImage
+                      src={p.cover_image_url}
+                      alt={p.title}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
                   ) : (
                     <div className="post-card-placeholder">SBĐ</div>
                   )}

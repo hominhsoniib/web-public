@@ -1,4 +1,6 @@
 import { useState } from "react";
+
+import { versionedImageSrc } from "../../lib/assetVersion";
 import { MOCK_POSTS, type PostDetail } from "../../lib/api";
 
 export default function PortalPosts() {
@@ -102,8 +104,11 @@ export default function PortalPosts() {
             <div key={post.id} className="portal-post-item">
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <img
-                  src={post.cover_image_url || "/images/loi-ich-sbc.png"}
+                  src={versionedImageSrc(post.cover_image_url || "/images/loi-ich-sbc.png")}
                   alt={post.title}
+                  loading="lazy"
+                  width={64}
+                  height={64}
                   style={{ width: '64px', height: '64px', objectFit: 'cover', borderRadius: '10px', border: '1px solid #e2e8f0' }}
                 />
                 <div>

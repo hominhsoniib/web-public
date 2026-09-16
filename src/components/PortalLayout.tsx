@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+
+import ResponsiveImage from "./ResponsiveImage";
 import { portalApi, type PortalDealerProfile } from "../lib/portalApi";
 
 export default function PortalLayout() {
@@ -115,7 +117,7 @@ export default function PortalLayout() {
       {/* Sidebar */}
       <aside className="portal-sidebar">
         <div className="portal-sidebar-brand">
-          <img src="/images/logo.jpg" alt="Bà Đen Farm Logo" />
+          <ResponsiveImage src="/images/logo.jpg" alt="Bà Đen Farm Logo" sizes="48px" loading="eager" />
           <div>
             <h2>Bà Đen Farm</h2>
             <p>Hệ Thống Admin CMS</p>

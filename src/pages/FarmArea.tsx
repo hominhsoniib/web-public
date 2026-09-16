@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
 
 const SITE = import.meta.env.VITE_SITE_URL ?? "http://localhost:4174";
@@ -54,7 +55,7 @@ export default function FarmArea() {
       <section className="container section">
         <div className="farm-intro-grid">
           <div className="farm-intro-visual" style={{ position: "relative", overflow: "hidden", borderRadius: "12px", minHeight: "300px" }}>
-            <img src="/images/products/sam-say.png" alt="Vùng trồng Sâm Bà Đen" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+            <ResponsiveImage src="/images/products/sam-say.png" alt="Vùng trồng Sâm Bà Đen" sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
             <div className="farm-map-placeholder" style={{
               position: "absolute",
               inset: 0,
