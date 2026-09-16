@@ -26,110 +26,126 @@ export default function PortalSettings() {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-800">Quản lý Cấu hình & Nội dung Website</h2>
-        <p className="text-sm text-gray-500 mt-1">Chỉnh sửa số điện thoại, email, địa chỉ, liên hệ và câu từ giới thiệu công ty trực tiếp không cần sửa code.</p>
+    <div style={{ maxWidth: '960px' }}>
+      <div className="portal-card">
+        <div className="portal-card-header" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: 0 }}>
+          <h2 className="portal-card-title">Quản lý Cấu hình & Nội dung Website</h2>
+          <p className="portal-card-desc">Chỉnh sửa số điện thoại, email, địa chỉ, liên hệ và câu từ giới thiệu công ty trực tiếp không cần sửa code.</p>
+        </div>
       </div>
 
       {savedSuccess && (
-        <div className="p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl flex items-center gap-3">
-          <span className="text-xl">✅</span>
-          <p className="font-semibold">Đã lưu thông tin cấu hình website thành công!</p>
+        <div className="portal-alert-success">
+          <span>✅</span>
+          <span>Đã lưu thông tin cấu hình website thành công!</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-6">
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold text-gray-800 border-b pb-2">1. Thông tin liên hệ & Hotline</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Số điện thoại Hotline (*)</label>
+      <form onSubmit={handleSubmit}>
+        <div className="portal-card">
+          <div className="portal-card-header">
+            <h3 className="portal-card-title">1. Thông tin liên hệ & Hotline</h3>
+            <p className="portal-card-desc">Cập nhật thông tin hỗ trợ khách hàng hiển thị trên Header và Footer website</p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="portal-grid-2">
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Số điện thoại Hotline (*)</label>
+                <input
+                  type="text"
+                  required
+                  value={settings.hotline}
+                  onChange={(e) => setSettings({ ...settings, hotline: e.target.value })}
+                  className="portal-input"
+                  placeholder="0909 123 456"
+                />
+              </div>
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Email liên hệ (*)</label>
+                <input
+                  type="email"
+                  required
+                  value={settings.email}
+                  onChange={(e) => setSettings({ ...settings, email: e.target.value })}
+                  className="portal-input"
+                  placeholder="info@badenfarm.com.vn"
+                />
+              </div>
+            </div>
+
+            <div className="portal-form-group" style={{ marginBottom: 0 }}>
+              <label>Địa chỉ trụ sở / Vùng trồng</label>
               <input
                 type="text"
                 required
-                value={settings.hotline}
-                onChange={(e) => setSettings({ ...settings, hotline: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                value={settings.address}
+                onChange={(e) => setSettings({ ...settings, address: e.target.value })}
+                className="portal-input"
+                placeholder="Chân Núi Bà Đen, Tây Ninh"
               />
             </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Email liên hệ (*)</label>
-              <input
-                type="email"
-                required
-                value={settings.email}
-                onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
-              />
-            </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Địa chỉ trụ sở / Vùng trồng</label>
-            <input
-              type="text"
-              required
-              value={settings.address}
-              onChange={(e) => setSettings({ ...settings, address: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Link Fanpage Facebook</label>
-              <input
-                type="text"
-                value={settings.facebook}
-                onChange={(e) => setSettings({ ...settings, facebook: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Số Zalo tư vấn</label>
-              <input
-                type="text"
-                value={settings.zalo}
-                onChange={(e) => setSettings({ ...settings, zalo: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
-              />
+            <div className="portal-grid-2">
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Link Fanpage Facebook</label>
+                <input
+                  type="text"
+                  value={settings.facebook}
+                  onChange={(e) => setSettings({ ...settings, facebook: e.target.value })}
+                  className="portal-input"
+                  placeholder="https://facebook.com/..."
+                />
+              </div>
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Số Zalo tư vấn</label>
+                <input
+                  type="text"
+                  value={settings.zalo}
+                  onChange={(e) => setSettings({ ...settings, zalo: e.target.value })}
+                  className="portal-input"
+                  placeholder="0909123456"
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="space-y-4 pt-4 border-t">
-          <h3 className="text-lg font-bold text-gray-800 border-b pb-2">2. Nội dung Sứ mệnh & Tầm nhìn</h3>
-
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Nội dung Sứ Mệnh (Mission)</label>
-            <textarea
-              rows={3}
-              value={settings.missionText}
-              onChange={(e) => setSettings({ ...settings, missionText: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
-            />
+        <div className="portal-card">
+          <div className="portal-card-header">
+            <h3 className="portal-card-title">2. Nội dung Sứ mệnh & Tầm nhìn</h3>
+            <p className="portal-card-desc">Cập nhật thông điệp định hướng phát triển của Công ty Cổ phần Bà Đen Farm</p>
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Nội dung Tầm Nhìn (Vision)</label>
-            <textarea
-              rows={3}
-              value={settings.visionText}
-              onChange={(e) => setSettings({ ...settings, visionText: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
-            />
-          </div>
-        </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="portal-form-group" style={{ marginBottom: 0 }}>
+              <label>Nội dung Sứ Mệnh (Mission)</label>
+              <textarea
+                rows={3}
+                value={settings.missionText}
+                onChange={(e) => setSettings({ ...settings, missionText: e.target.value })}
+                className="portal-textarea"
+                placeholder="Nhập nội dung Sứ mệnh..."
+              />
+            </div>
 
-        <div className="pt-4 border-t flex justify-end">
-          <button
-            type="submit"
-            className="px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white font-medium rounded-lg shadow-md transition-colors flex items-center gap-2"
-          >
-            <span>💾 Lưu thay đổi cấu hình</span>
-          </button>
+            <div className="portal-form-group" style={{ marginBottom: 0 }}>
+              <label>Nội dung Tầm Nhìn (Vision)</label>
+              <textarea
+                rows={3}
+                value={settings.visionText}
+                onChange={(e) => setSettings({ ...settings, visionText: e.target.value })}
+                className="portal-textarea"
+                placeholder="Nhập nội dung Tầm nhìn..."
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '24px', paddingTop: '18px', borderTop: '1px solid #f1f5f9' }}>
+            <button type="submit" className="portal-btn-save">
+              <span>💾 Lưu thay đổi cấu hình</span>
+            </button>
+          </div>
         </div>
       </form>
     </div>

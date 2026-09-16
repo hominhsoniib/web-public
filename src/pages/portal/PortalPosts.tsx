@@ -78,58 +78,58 @@ export default function PortalPosts() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+    <div style={{ maxWidth: '1000px' }}>
+      <div className="portal-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Quản lý Bài viết & Blog</h2>
-          <p className="text-sm text-gray-500 mt-1">Chỉnh sửa, thêm bài viết tin tức mới hiển thị trên website không cần đụng mã nguồn.</p>
+          <h2 className="portal-card-title">Quản lý Bài viết & Blog</h2>
+          <p className="portal-card-desc">Chỉnh sửa, thêm bài viết tin tức mới hiển thị trên website không cần đụng mã nguồn.</p>
         </div>
         <button
           onClick={handleOpenAdd}
-          className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
+          className="portal-btn-save"
         >
           <span>➕ Thêm bài viết mới</span>
         </button>
       </div>
 
       {/* Danh sách bài viết */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-        <div className="p-4 border-b border-gray-100 bg-gray-50 font-semibold text-gray-700 flex justify-between items-center">
-          <span>Danh sách bài viết hiện tại ({posts.length})</span>
+      <div className="portal-card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div style={{ padding: '16px 24px', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontWeight: 600, color: '#334155' }}>
+          Danh sách bài viết hiện tại ({posts.length})
         </div>
-        <div className="divide-y divide-gray-100">
+        <div>
           {posts.map((post) => (
-            <div key={post.id} className="p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-gray-50/80 transition-colors">
-              <div className="flex items-center gap-4">
+            <div key={post.id} className="portal-post-item">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <img
                   src={post.cover_image_url || "/images/loi-ich-sbc.png"}
                   alt={post.title}
-                  className="w-16 h-16 object-cover rounded-lg border border-gray-200"
+                  style={{ width: '64px', height: '64px', objectFit: 'cover', borderRadius: '10px', border: '1px solid #e2e8f0' }}
                 />
                 <div>
-                  <h3 className="font-bold text-gray-800 text-base">{post.title}</h3>
-                  <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{post.excerpt}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded font-medium">
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', margin: '0 0 4px' }}>{post.title}</h3>
+                  <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>{post.excerpt}</p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '6px' }}>
+                    <span style={{ fontSize: '12px', background: '#f0fdf4', color: '#166534', padding: '2px 8px', borderRadius: '6px', fontWeight: 600 }}>
                       {post.category?.name || "Tin tức"}
                     </span>
-                    <span className="text-xs text-gray-400">
+                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>
                       {post.published_at ? new Date(post.published_at).toLocaleDateString("vi-VN") : "Mới đăng"}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <button
                   onClick={() => handleOpenEdit(post)}
-                  className="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 text-sm font-medium rounded-md transition-colors"
+                  className="portal-btn-edit"
                 >
                   ✏️ Chỉnh sửa
                 </button>
                 <button
                   onClick={() => handleDelete(post.id)}
-                  className="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 text-sm font-medium rounded-md transition-colors"
+                  className="portal-btn-delete"
                 >
                   🗑️ Xóa
                 </button>
@@ -141,89 +141,115 @@ export default function PortalPosts() {
 
       {/* Modal Form Thêm/Sửa */}
       {editingPost && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl w-full max-w-3xl p-6 shadow-2xl space-y-4 my-8">
-            <div className="flex justify-between items-center border-b pb-4">
-              <h3 className="text-xl font-bold text-gray-800">
+        <div
+          onClick={() => setEditingPost(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(4px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: '#ffffff',
+              borderRadius: '16px',
+              maxWidth: '800px',
+              width: '100%',
+              maxHeight: '90vh',
+              padding: '28px',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.25)',
+              position: 'relative',
+              overflowY: 'auto'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '14px', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a', margin: 0 }}>
                 {isNew ? "Thêm bài viết mới" : "Chỉnh sửa bài viết"}
               </h3>
               <button
                 onClick={() => setEditingPost(null)}
-                className="text-gray-400 hover:text-gray-600 text-xl font-bold"
+                style={{ background: '#f1f5f9', border: 'none', width: '32px', height: '32px', borderRadius: '50%', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', color: '#64748b' }}
               >
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleSaveForm} className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Tiêu đề bài viết (*)</label>
+            <form onSubmit={handleSaveForm} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Tiêu đề bài viết (*)</label>
                 <input
                   type="text"
                   required
                   value={editingPost.title || ""}
                   onChange={(e) => setEditingPost({ ...editingPost, title: e.target.value })}
                   placeholder="Ví dụ: 6 Công dụng tuyệt vời của Sâm Bố Chính"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="portal-input"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1">Đường dẫn Hình ảnh (URL)</label>
+              <div className="portal-grid-2">
+                <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                  <label>Đường dẫn Hình ảnh (URL)</label>
                   <input
                     type="text"
                     value={editingPost.cover_image_url || ""}
                     onChange={(e) => setEditingPost({ ...editingPost, cover_image_url: e.target.value })}
                     placeholder="/images/loi-ich-sbc.png"
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                    className="portal-input"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1">Tác giả</label>
+                <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                  <label>Tác giả</label>
                   <input
                     type="text"
                     value={editingPost.author_name || ""}
                     onChange={(e) => setEditingPost({ ...editingPost, author_name: e.target.value })}
                     placeholder="Ban Biên Tập Bà Đen Farm"
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                    className="portal-input"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Mô tả tóm tắt (Excerpt)</label>
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Mô tả tóm tắt (Excerpt)</label>
                 <textarea
                   rows={2}
                   value={editingPost.excerpt || ""}
                   onChange={(e) => setEditingPost({ ...editingPost, excerpt: e.target.value })}
                   placeholder="Tóm tắt ngắn gọn hiển thị trên thẻ bài viết"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="portal-textarea"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Nội dung bài viết (HTML / Văn bản)</label>
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Nội dung bài viết (HTML / Văn bản)</label>
                 <textarea
                   rows={8}
                   value={editingPost.content || ""}
                   onChange={(e) => setEditingPost({ ...editingPost, content: e.target.value })}
                   placeholder="Nhập nội dung bài viết..."
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none font-mono text-sm"
+                  className="portal-textarea"
                 />
               </div>
 
-              <div className="flex justify-end gap-3 pt-4 border-t">
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
                 <button
                   type="button"
                   onClick={() => setEditingPost(null)}
-                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium"
+                  style={{ padding: '10px 18px', background: '#f1f5f9', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 500, color: '#475569', cursor: 'pointer' }}
                 >
                   Hủy bỏ
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-green-700 hover:bg-green-800 text-white rounded-lg text-sm font-medium shadow-md"
+                  className="portal-btn-save"
                 >
                   💾 Lưu bài viết
                 </button>
