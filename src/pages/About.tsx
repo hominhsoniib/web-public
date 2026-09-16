@@ -139,7 +139,7 @@ export default function About() {
         </div>
         <div className="about-timeline">
           {MILESTONES.map((m, i) => (
-            <div key={m.year} className="tl-item" style={{ animationDelay: `${i * 0.08}s` }}>
+            <div key={`${m.year}-${i}`} className="tl-item" style={{ animationDelay: `${i * 0.08}s` }}>
               <div className="tl-dot" />
               <div className="tl-content">
                 <span className="tl-year">{m.year}</span>
