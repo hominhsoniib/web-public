@@ -111,6 +111,31 @@ export default function ProductDetailPage() {
               </div>
             )}
 
+            <div className="pd-section pd-terms-box" style={{ background: "#f8f9fa", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "16px 20px", marginTop: "20px" }}>
+              <h3 style={{ fontSize: "16px", fontWeight: "700", color: "var(--primary-color, #1a4d2e)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
+                <span>📜</span> Điều khoản & Cam kết mua hàng
+              </h3>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: "14px", lineHeight: "1.7", color: "#444" }}>
+                <li style={{ marginBottom: "6px", display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                  <span style={{ color: "#2e7d32", fontWeight: "bold" }}>✓</span>
+                  <span><strong>Kiểm tra hàng trước khi thanh toán:</strong> Quý khách được mở kiểm tra đúng loại và tình trạng sản phẩm trước khi thanh toán (COD toàn quốc).</span>
+                </li>
+                <li style={{ marginBottom: "6px", display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                  <span style={{ color: "#2e7d32", fontWeight: "bold" }}>✓</span>
+                  <span><strong>Đổi trả 1-1 trong 7 ngày:</strong> Đổi mới 100% miễn phí nếu sản phẩm có lỗi bao bì hoặc rủi ro vận chuyển.</span>
+                </li>
+                <li style={{ marginBottom: "6px", display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                  <span style={{ color: "#2e7d32", fontWeight: "bold" }}>✓</span>
+                  <span><strong>Sản phẩm OCOP 4 Sao:</strong> 100% Sâm Bố Chính hữu cơ Núi Bà Đen, Tây Ninh.</span>
+                </li>
+              </ul>
+              <div style={{ marginTop: "12px", paddingTop: "8px", borderTop: "1px dashed #cbd5e1" }}>
+                <Link to="/dieu-khoan-su-dung" style={{ fontSize: "13px", color: "var(--primary-color, #1a4d2e)", fontWeight: "600", textDecoration: "underline" }}>
+                  Xem chi tiết Điều khoản sử dụng chính thức →
+                </Link>
+              </div>
+            </div>
+
             {p.disclaimer && <p className="disclaimer">{p.disclaimer}</p>}
           </div>
         </div>
