@@ -12,7 +12,7 @@ export interface PolicyTab {
   content: ReactNode;
 }
 
-export const POLICIES: PolicyTab[] = [
+const DEFAULT_POLICIES_STATIC: PolicyTab[] = [
   {
     id: "bao-hanh",
     title: "Chính Sách Bảo Hành",
@@ -228,19 +228,75 @@ export const POLICIES: PolicyTab[] = [
   },
 ];
 
+const renderFormattedText = (text: string) => {
+  const blocks = text.split("\n\n");
+  return (
+    <div>
+      {blocks.map((block, idx) => {
+        const lines = block.split("\n");
+        return (
+          <div key={idx} style={{ marginBottom: "16px" }}>
+            {lines.map((line, lIdx) => {
+              const trimmed = line.trim();
+              if (trimmed.match(/^[0-9]+\./)) {
+                return (
+                  <h2 key={lIdx} style={{ color: "#1a4d2e", marginTop: "24px", marginBottom: "10px", fontSize: "18px", fontWeight: "700" }}>
+                    {trimmed}
+                  </h2>
+                );
+              }
+              if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+                return (
+                  <li key={lIdx} style={{ marginLeft: "20px", marginBottom: "6px" }}>
+                    {trimmed.substring(2)}
+                  </li>
+                );
+              }
+              return <p key={lIdx} style={{ margin: "6px 0", lineHeight: "1.7" }}>{line}</p>;
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export const POLICIES = DEFAULT_POLICIES_STATIC;
+
 export default function TermsOfService() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
   
-  const [activeTab, setActiveTab] = useState<string>(tabParam && POLICIES.some(p => p.id === tabParam) ? tabParam : POLICIES[0].id);
+  const [activeTab, setActiveTab] = useState<string>(tabParam && DEFAULT_POLICIES_STATIC.some(p => p.id === tabParam) ? tabParam : DEFAULT_POLICIES_STATIC[0].id);
+
+  const [customPolicies, setCustomPolicies] = useState<Record<string, { title: string; description: string; contentText: string }> | null>(null);
 
   useEffect(() => {
-    if (tabParam && POLICIES.some(p => p.id === tabParam)) {
+    const saved = localStorage.getItem("custom_policy_content");
+    if (saved) {
+      try {
+        setCustomPolicies(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (tabParam && DEFAULT_POLICIES_STATIC.some(p => p.id === tabParam)) {
       setActiveTab(tabParam);
     }
   }, [tabParam]);
 
-  const currentPolicy = POLICIES.find((p) => p.id === activeTab) ?? POLICIES[0];
+  const defaultPolicy = DEFAULT_POLICIES_STATIC.find((p) => p.id === activeTab) ?? DEFAULT_POLICIES_STATIC[0];
+
+  const customPolicy = customPolicies ? customPolicies[activeTab] : null;
+
+  const title = customPolicy?.title || defaultPolicy.title;
+  const description = customPolicy?.description || defaultPolicy.description;
+  const contentNode = customPolicy?.contentText
+    ? renderFormattedText(customPolicy.contentText)
+    : defaultPolicy.content;
 
   const handleSelectTab = (id: string) => {
     setActiveTab(id);
@@ -251,16 +307,16 @@ export default function TermsOfService() {
     <>
       <Seo
         seo={{
-          title: `${currentPolicy.title} — Bà Đen Farm`,
-          description: currentPolicy.description,
-          canonical_url: SITE + `/dieu-khoan-su-dung?tab=${currentPolicy.id}`,
+          title: `${title} — Bà Đen Farm`,
+          description: description,
+          canonical_url: SITE + `/dieu-khoan-su-dung?tab=${activeTab}`,
           robots: "index,follow",
         }}
       />
 
       <div className="container page-top">
         <nav className="breadcrumb">
-          <Link to="/">Trang chủ</Link> <span>/</span> <Link to="/dieu-khoan-su-dung">Điều khoản sử dụng</Link> <span>/</span> <span>{currentPolicy.title}</span>
+          <Link to="/">Trang chủ</Link> <span>/</span> <Link to="/dieu-khoan-su-dung">Điều khoản sử dụng</Link> <span>/</span> <span>{title}</span>
         </nav>
         <h1 className="page-title">Điều khoản sử dụng & Chính sách</h1>
         <p className="page-lead">
@@ -277,8 +333,9 @@ export default function TermsOfService() {
               Danh mục chính sách
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              {POLICIES.map((p) => {
+              {DEFAULT_POLICIES_STATIC.map((p) => {
                 const isActive = p.id === activeTab;
+                const policyTitle = customPolicies && customPolicies[p.id]?.title ? customPolicies[p.id].title : p.title;
                 return (
                   <button
                     key={p.id}
@@ -300,7 +357,7 @@ export default function TermsOfService() {
                     }}
                   >
                     <span style={{ fontSize: "18px" }}>{p.icon}</span>
-                    <span>{p.title}</span>
+                    <span>{policyTitle}</span>
                   </button>
                 );
               })}
@@ -310,19 +367,19 @@ export default function TermsOfService() {
           {/* Policy Content Area */}
           <div className="policy-main-content" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "32px", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px", paddingBottom: "16px", borderBottom: "2px solid #f1f5f9" }}>
-              <span style={{ fontSize: "32px" }}>{currentPolicy.icon}</span>
+              <span style={{ fontSize: "32px" }}>{defaultPolicy.icon}</span>
               <div>
                 <h1 style={{ fontSize: "24px", fontWeight: "700", color: "#1a4d2e", margin: 0 }}>
-                  {currentPolicy.title}
+                  {title}
                 </h1>
                 <p style={{ margin: "4px 0 0 0", color: "#64748b", fontSize: "14px" }}>
-                  {currentPolicy.description}
+                  {description}
                 </p>
               </div>
             </div>
 
             <div className="prose policy-body" style={{ lineHeight: "1.8", color: "#334155", fontSize: "15px" }}>
-              {currentPolicy.content}
+              {contentNode}
             </div>
 
             {/* Contact Box Footer */}
