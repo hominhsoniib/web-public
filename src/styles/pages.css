@@ -167,19 +167,6 @@
 .farm-step-card h3 { font-size: 18px; margin-bottom: 8px; }
 .farm-step-card p { font-size: 14px; color: var(--text-soft); }
 
-/* ---- Farm: certifications ---- */
-.farm-cert-head { margin-bottom: 28px; }
-.farm-cert-head h2 { font-size: 30px; margin-top: 8px; }
-.farm-cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.farm-cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 24px; text-align: center; transition: transform .12s; }
-.farm-cert-card:hover { transform: translateY(-2px); }
-.farm-cert-badge { display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 50%; color: #fff; font-size: 20px;
-  font-weight: 700; margin-bottom: 12px; }
-.farm-cert-card h3 { font-size: 17px; margin-bottom: 6px; }
-.farm-cert-card p { font-size: 13px; color: var(--text-soft); }
-
 /* ---- Contact: grid ---- */
 .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: start; }
 .contact-info { display: flex; flex-direction: column; gap: 20px; }
@@ -249,7 +236,6 @@
   .dealer-register-grid { grid-template-columns: 1fr; gap: 32px; }
   .farm-intro-grid { grid-template-columns: 1fr; gap: 28px; }
   .farm-process-grid { grid-template-columns: repeat(2, 1fr); }
-  .farm-cert-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { grid-template-columns: 1fr; }
   .careers-perks-grid { grid-template-columns: repeat(2, 1fr); }
   .careers-job-head { flex-direction: column; }
@@ -260,7 +246,6 @@
   .about-mission-stats { grid-template-columns: 1fr; }
   .dealer-cards { grid-template-columns: 1fr; }
   .farm-process-grid { grid-template-columns: 1fr; }
-  .farm-cert-grid { grid-template-columns: 1fr; }
   .farm-stats-row { flex-direction: column; gap: 16px; }
   .careers-perks-grid { grid-template-columns: 1fr; }
 }

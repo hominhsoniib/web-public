@@ -14,15 +14,6 @@ const PROCESS_STEPS = [
   { step: "06", title: "Truy xuất", desc: "Mỗi sản phẩm gắn QR Code truy xuất nguồn gốc — từ vùng trồng đến tay người dùng." },
 ];
 
-const CERTIFICATIONS = [
-  { name: "OCOP 4 sao", desc: "Chương trình mỗi xã một sản phẩm — Tây Ninh công nhận", color: "var(--gold-600)" },
-  { name: "VietGAP", desc: "Thực hành nông nghiệp tốt Việt Nam", color: "var(--green-600)" },
-  { name: "GlobalGAP", desc: "Tiêu chuẩn nông nghiệp tốt toàn cầu", color: "#16a34a" },
-  { name: "ISO 22000", desc: "Hệ thống quản lý an toàn thực phẩm quốc tế", color: "#2563eb" },
-  { name: "An toàn thực phẩm", desc: "Đạt tiêu chuẩn theo quy định Bộ Y tế", color: "var(--green-700)" },
-  { name: "CN Nông thôn Tiêu biểu", desc: "Sản phẩm công nghiệp nông thôn tiêu biểu cấp tỉnh", color: "#7c3aed" },
-];
-
 export default function FarmArea() {
   return (
     <>
@@ -130,25 +121,6 @@ export default function FarmArea() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Chứng nhận */}
-      <section className="container section">
-        <div className="farm-cert-head">
-          <span className="section-label">Chứng nhận</span>
-          <h2>Tiêu chuẩn & Chứng nhận</h2>
-        </div>
-        <div className="farm-cert-grid" style={{ gridTemplateColumns: "repeat(3,1fr)" }}>
-          {CERTIFICATIONS.map((c) => (
-            <div key={c.name} className="farm-cert-card">
-              <div className="farm-cert-badge" style={{ background: c.color }}>
-                ✓
-              </div>
-              <h3>{c.name}</h3>
-              <p>{c.desc}</p>
-            </div>
-          ))}
         </div>
       </section>
 
