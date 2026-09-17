@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
 import { fmtVnd, product, type ProductListItem } from "../lib/api";
 
@@ -54,11 +53,7 @@ export default function ProductList() {
               >
                 <div className="prod-card-img">
                   {p.primary_image ? (
-                    <ResponsiveImage
-                      src={p.primary_image}
-                      alt={p.name}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
+                    <img src={p.primary_image} alt={p.name} />
                   ) : (
                     <div className="prod-card-ph">SBĐ</div>
                   )}

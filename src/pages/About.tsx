@@ -1,24 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
 
 const SITE = import.meta.env.VITE_SITE_URL ?? "http://localhost:4174";
 
 const CERTIFICATES = [
-  { title: "Giấy chứng nhận OCOP 4 Sao — Bột Sâm Bố Chính", src: "/images/ocop/1. sp ocop.png", width: 1086, height: 1448 },
-  { title: "Giấy chứng nhận OCOP 4 Sao — Trà Sâm Bà Đen", src: "/images/ocop/2. sp ocop.png", width: 1086, height: 1448 },
-  { title: "Giấy chứng nhận OCOP 4 Sao — Rượu Sâm Bố Chính", src: "/images/ocop/3. sp ocop.png", width: 1086, height: 1448 },
-  { title: "Giấy chứng nhận OCOP 4 Sao — Cao Sâm Bố Chính", src: "/images/ocop/4. sp ocop.png", width: 1086, height: 1448 },
-  { title: "Giấy chứng nhận OCOP 4 Sao — Sâm Sấy Khô", src: "/images/ocop/5. sp ocop.png", width: 1086, height: 1448 },
-  { title: "Giấy chứng nhận OCOP 4 Sao — Trà Hoa Sâm", src: "/images/ocop/6. sp ocop.png", width: 1086, height: 1448 },
-  { title: "Giấy chứng nhận OCOP 4 Sao — Lẩu Sâm Dưỡng Sinh", src: "/images/ocop/7. sp ocop.png", width: 1089, height: 1445 },
-  { title: "Giấy chứng nhận Cơ sở đủ điều kiện An toàn Thực phẩm", src: "/images/ocop/Giay ATVSTP.png", width: 995, height: 1581 },
-  { title: "Chứng nhận Sản phẩm Nông nghiệp Tiêu biểu Cấp Tỉnh", src: "/images/ocop/1. CC SP tieu bieu.jpg", width: 1080, height: 1440 },
-  { title: "Bằng khen Sản phẩm Nông nghiệp Tiêu biểu", src: "/images/ocop/sp tieu bieu.png", width: 1086, height: 1448 },
-  { title: "Chứng nhận Top Sản phẩm Tiêu biểu 2022", src: "/images/ocop/sp top.png", width: 1105, height: 1423 },
-  { title: "Chứng nhận Top Sản phẩm Tiêu biểu 2023", src: "/images/ocop/sp top 2.png", width: 1096, height: 1435 },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Bột Sâm Bố Chính", src: "/images/ocop/1. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Trà Sâm Bà Đen", src: "/images/ocop/2. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Rượu Sâm Bố Chính", src: "/images/ocop/3. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Cao Sâm Bố Chính", src: "/images/ocop/4. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Sâm Sấy Khô", src: "/images/ocop/5. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Trà Hoa Sâm", src: "/images/ocop/6. sp ocop.png" },
+  { title: "Giấy chứng nhận OCOP 4 Sao — Lẩu Sâm Dưỡng Sinh", src: "/images/ocop/7. sp ocop.png" },
+  { title: "Giấy chứng nhận Cơ sở đủ điều kiện An toàn Thực phẩm", src: "/images/ocop/Giay ATVSTP.png" },
+  { title: "Chứng nhận Sản phẩm Nông nghiệp Tiêu biểu Cấp Tỉnh", src: "/images/ocop/1. CC SP tieu bieu.jpg" },
+  { title: "Bằng khen Sản phẩm Nông nghiệp Tiêu biểu", src: "/images/ocop/sp tieu bieu.png" },
+  { title: "Chứng nhận Top Sản phẩm Tiêu biểu 2022", src: "/images/ocop/sp top.png" },
+  { title: "Chứng nhận Top Sản phẩm Tiêu biểu 2023", src: "/images/ocop/sp top 2.png" },
 ];
 
 const VALUES = [
@@ -56,7 +55,7 @@ const MILESTONES = [
 ];
 
 export default function About() {
-  const [selectedCert, setSelectedCert] = useState<{ title: string; src: string; width: number; height: number } | null>(null);
+  const [selectedCert, setSelectedCert] = useState<{ title: string; src: string } | null>(null);
 
   return (
     <>
@@ -137,13 +136,10 @@ export default function About() {
             "Vì sức khỏe cộng đồng, lan tỏa giá trị dược liệu Việt và xây dựng nền nông nghiệp bền vững từ Sâm Bố Chính tại Tây Ninh."
           </p>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <ResponsiveImage
-              src="/images/su-menh.png"
-              alt="Infographic Sứ mệnh Bà Đen Farm"
-              sizes="(max-width: 1050px) 100vw, 1050px"
-              width={1536}
-              height={1024}
-              style={{ width: '100%', maxWidth: '1050px', height: 'auto', borderRadius: '12px', boxShadow: '0 6px 24px rgba(0,0,0,0.1)', border: '1px solid var(--border)' }}
+            <img 
+              src="/images/su-menh.png" 
+              alt="Infographic Sứ mệnh Bà Đen Farm" 
+              style={{ width: '100%', maxWidth: '1050px', height: 'auto', borderRadius: '12px', boxShadow: '0 6px 24px rgba(0,0,0,0.1)', border: '1px solid var(--border)' }} 
             />
           </div>
         </div>
@@ -158,13 +154,10 @@ export default function About() {
             Trở thành đơn vị uy tín và tiên phong trong ngành Dược liệu sạch tại Việt Nam. Khát vọng đưa sản phẩm Dược liệu Việt Nam vươn tầm quốc tế (Nhật Bản, Hàn Quốc, Mỹ, Châu Âu và Úc).
           </p>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <ResponsiveImage
-              src="/images/tam-nhin.png"
-              alt="Infographic Tầm nhìn Bà Đen Farm"
-              sizes="(max-width: 1050px) 100vw, 1050px"
-              width={1536}
-              height={1024}
-              style={{ width: '100%', maxWidth: '1050px', height: 'auto', borderRadius: '12px', boxShadow: '0 6px 24px rgba(0,0,0,0.1)', border: '1px solid var(--border)' }}
+            <img 
+              src="/images/tam-nhin.png" 
+              alt="Infographic Tầm nhìn Bà Đen Farm" 
+              style={{ width: '100%', maxWidth: '1050px', height: 'auto', borderRadius: '12px', boxShadow: '0 6px 24px rgba(0,0,0,0.1)', border: '1px solid var(--border)' }} 
             />
           </div>
         </div>
@@ -246,12 +239,9 @@ export default function About() {
               }}
             >
               <div style={{ width: '100%', height: '260px', overflow: 'hidden', borderRadius: 'var(--radius-sm)', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ResponsiveImage
+                <img
                   src={cert.src}
                   alt={cert.title}
-                  sizes="(max-width: 640px) 45vw, 260px"
-                  width={cert.width}
-                  height={cert.height}
                   style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                 />
               </div>
@@ -323,13 +313,9 @@ export default function About() {
               {selectedCert.title}
             </h3>
             <div style={{ flex: 1, overflow: 'auto', display: 'flex', justifyContent: 'center', width: '100%' }}>
-              <ResponsiveImage
+              <img
                 src={selectedCert.src}
                 alt={selectedCert.title}
-                sizes="900px"
-                loading="eager"
-                width={selectedCert.width}
-                height={selectedCert.height}
                 style={{ maxWidth: '100%', maxHeight: '72vh', objectFit: 'contain', borderRadius: '8px' }}
               />
             </div>

@@ -1,7 +1,5 @@
 import axios from "axios";
 
-import { stripHtml, type PortalProduct } from "./portalApi";
-
 // Support dynamic URL via query param or localStorage for easier mobile testing
 const urlParams = new URLSearchParams(window.location.search);
 const apiParam = urlParams.get("api");
@@ -18,7 +16,7 @@ const BASE_URL =
     ? "https://sambaden-api.loca.lt/api/v1"
     : `${window.location.protocol}//${window.location.hostname}:8000/api/v1`);
 
-export const api = axios.create({ baseURL: BASE_URL, timeout: 1200 });
+export const api = axios.create({ baseURL: BASE_URL });
 
 // Gắn Bypass-Tunnel-Reminder header để tránh trang cảnh báo của localtunnel
 api.interceptors.request.use((config) => {
@@ -435,36 +433,6 @@ export const MOCK_PRODUCTS: ProductDetail[] = [
   }
 ];
 
-/** custom_mock_products (localStorage) lưu PortalProduct[] — schema riêng của
- * admin, khác ProductDetail công khai — nên cần transform, không chỉ chọn field
- * như blog.list()/blog.detail() (custom_mock_posts đã lưu đúng kiểu PostDetail[]). */
-function portalProductToProductDetail(p: PortalProduct): ProductDetail {
-  return {
-    id: p.id,
-    name: p.name,
-    slug: p.slug,
-    short_desc: p.description ? stripHtml(p.description, 150) : null,
-    description: p.description ?? null,
-    reference_price: p.base_price,
-    unit: p.unit,
-    usage_info: null,
-    disclaimer: null,
-    status: p.in_stock ? "published" : "draft",
-    category: p.category,
-    images: p.images,
-    seo: p.seo,
-    json_ld: p.json_ld,
-    related: [],
-  };
-}
-
-function getActiveProducts(): ProductDetail[] {
-  const customRaw = localStorage.getItem("custom_mock_products");
-  if (!customRaw) return MOCK_PRODUCTS;
-  const stored: PortalProduct[] = JSON.parse(customRaw);
-  return stored.map(portalProductToProductDetail);
-}
-
 export const product = {
   async list(category?: string) {
     try {
@@ -477,8 +445,7 @@ export const product = {
     } catch {
       // Fallback when API offline or empty
     }
-    const activeProducts = getActiveProducts();
-    const listItems: ProductListItem[] = activeProducts.map((p) => ({
+    const listItems: ProductListItem[] = MOCK_PRODUCTS.map((p) => ({
       id: p.id,
       name: p.name,
       slug: p.slug,
@@ -503,12 +470,11 @@ export const product = {
     } catch {
       // Fallback when API offline
     }
-    const activeProducts = getActiveProducts();
-    const found = activeProducts.find((p) => p.slug === slug);
+    const found = MOCK_PRODUCTS.find((p) => p.slug === slug);
     if (!found) return null;
     return {
       ...found,
-      related: activeProducts.filter((p) => p.slug !== slug).slice(0, 3).map((p) => ({
+      related: MOCK_PRODUCTS.filter((p) => p.slug !== slug).slice(0, 3).map((p) => ({
         id: p.id,
         name: p.name,
         slug: p.slug,

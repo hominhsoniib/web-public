@@ -1,21 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
-import YouTubeFacade from "../components/YouTubeFacade";
 import { blog, fmtDate, product, type PostListItem, type ProductListItem } from "../lib/api";
 import { fmtVnd } from "../lib/api";
 
 const SITE = import.meta.env.VITE_SITE_URL ?? "http://localhost:4174";
-
-const INTRO_VIDEOS = [
-  { id: "wtxXklOBhgE", title: "Video giới thiệu Bà Đen Farm #1" },
-  { id: "-vmvlboyWPQ", title: "Video giới thiệu Bà Đen Farm #2" },
-  { id: "pp4PH2AByZk", title: "Video giới thiệu Bà Đen Farm #3" },
-  { id: "t7tI6t-nH5E", title: "Video giới thiệu Bà Đen Farm #4" },
-  { id: "qD9Hduf7tP4", title: "Video giới thiệu Bà Đen Farm #5" },
-];
 
 export default function Home() {
   const [posts, setPosts] = useState<PostListItem[]>([]);
@@ -98,11 +88,7 @@ export default function Home() {
               <Link key={p.id} to={`/san-pham/${p.slug}`} className="prod-card">
                 <div className="prod-card-img">
                   {p.primary_image ? (
-                    <ResponsiveImage
-                      src={p.primary_image}
-                      alt={p.name}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
+                    <img src={p.primary_image} alt={p.name} />
                   ) : (
                     <div className="prod-card-ph">SBĐ</div>
                   )}
@@ -141,11 +127,7 @@ export default function Home() {
               <Link key={p.id} to={`/blog/${p.slug}`} className="post-card">
                 <div className="post-card-cover">
                   {p.cover_image_url ? (
-                    <ResponsiveImage
-                      src={p.cover_image_url}
-                      alt={p.title}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
+                    <img src={p.cover_image_url} alt={p.title} />
                   ) : (
                     <div className="post-card-placeholder">SBĐ</div>
                   )}
@@ -162,18 +144,6 @@ export default function Home() {
             ))}
           </div>
         )}
-      </section>
-
-      {/* Video giới thiệu */}
-      <section className="container section">
-        <div className="section-head">
-          <h2>Video giới thiệu</h2>
-        </div>
-        <div className="video-grid">
-          {INTRO_VIDEOS.map((v) => (
-            <YouTubeFacade key={v.id} videoId={v.id} title={v.title} />
-          ))}
-        </div>
       </section>
     </>
   );

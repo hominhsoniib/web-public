@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-
-import ResponsiveImage from "./ResponsiveImage";
 import { portalApi, type PortalDealerProfile } from "../lib/portalApi";
 
 export default function PortalLayout() {
@@ -31,11 +29,28 @@ export default function PortalLayout() {
       return;
     }
 
-    if (localStorage.getItem("portal_auth_mode") === "offline-verified") {
-      // Đã xác thực bằng offline-fallback lúc đăng nhập (không có backend) —
-      // không gọi lại getProfile() qua mạng (chắc chắn sẽ lỗi vì không có
-      // backend), dùng luôn hồ sơ admin cố định. Xem TODO trong portalApi.ts.
-      queueMicrotask(() => {
+    if (token === "demo-token-admin") {
+      setProfile({
+        id: "admin-1",
+        code: "ADMIN-001",
+        name: "Ban Quản Trị Bà Đen Farm",
+        tier: "Admin",
+        region: "Tây Ninh",
+        credit_limit: 1000000000,
+        payment_term_days: 30,
+        status: "active",
+        balance: 0,
+      });
+      setLoading(false);
+      return;
+    }
+
+    portalApi.getProfile()
+      .then(res => {
+        setProfile(res);
+      })
+      .catch(() => {
+        // Fallback admin profile nếu API offline
         setProfile({
           id: "admin-1",
           code: "ADMIN-001",
@@ -47,19 +62,6 @@ export default function PortalLayout() {
           status: "active",
           balance: 0,
         });
-        setLoading(false);
-      });
-      return;
-    }
-
-    portalApi.getProfile()
-      .then(res => {
-        setProfile(res);
-      })
-      .catch(() => {
-        // Token không hợp lệ/hết hạn hoặc gọi API thất bại — đăng xuất, không tự cấp quyền admin.
-        localStorage.removeItem("portal_access_token");
-        navigate("/portal/login");
       })
       .finally(() => {
         setLoading(false);
@@ -68,7 +70,6 @@ export default function PortalLayout() {
 
   const handleLogout = () => {
     localStorage.removeItem("portal_access_token");
-    localStorage.removeItem("portal_auth_mode");
     navigate("/portal/login");
   };
 
@@ -114,7 +115,7 @@ export default function PortalLayout() {
       {/* Sidebar */}
       <aside className="portal-sidebar">
         <div className="portal-sidebar-brand">
-          <ResponsiveImage src="/images/logo-white.png" alt="Bà Đen Farm Logo" sizes="48px" loading="eager" />
+          <img src="/images/logo.jpg" alt="Bà Đen Farm Logo" />
           <div>
             <h2>Bà Đen Farm</h2>
             <p>Hệ Thống Admin CMS</p>

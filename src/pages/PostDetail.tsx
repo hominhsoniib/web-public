@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
 import { blog, fmtDate, type PostDetail } from "../lib/api";
 
@@ -68,12 +67,10 @@ export default function PostDetailPage() {
 
       {post.cover_image_url && (
         <div className="container">
-          <ResponsiveImage
+          <img
             className="article-cover"
             src={post.cover_image_url}
             alt={post.title}
-            sizes="(max-width: 900px) 100vw, 900px"
-            loading="eager"
           />
         </div>
       )}

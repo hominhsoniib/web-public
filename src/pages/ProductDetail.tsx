@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
 import { fmtVnd, product, type ProductDetail } from "../lib/api";
 
@@ -64,12 +63,7 @@ export default function ProductDetailPage() {
           <div className="pd-gallery">
             <div className="pd-main-img">
               {images[activeImg].image_url ? (
-                <ResponsiveImage
-                  src={images[activeImg].image_url}
-                  alt={p.name}
-                  sizes="(max-width: 768px) 100vw, 600px"
-                  loading="eager"
-                />
+                <img src={images[activeImg].image_url} alt={p.name} />
               ) : (
                 <div className="pd-ph">SBĐ</div>
               )}
@@ -83,7 +77,7 @@ export default function ProductDetailPage() {
                     onClick={() => setActiveImg(i)}
                     aria-label={`Ảnh ${i + 1}`}
                   >
-                    <ResponsiveImage src={im.image_url} alt="" sizes="80px" />
+                    <img src={im.image_url} alt="" />
                   </button>
                 ))}
               </div>
@@ -171,11 +165,7 @@ export default function ProductDetailPage() {
               >
                 <div className="prod-card-img">
                   {r.primary_image ? (
-                    <ResponsiveImage
-                      src={r.primary_image}
-                      alt={r.name}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
+                    <img src={r.primary_image} alt={r.name} />
                   ) : (
                     <div className="prod-card-ph">SBĐ</div>
                   )}
