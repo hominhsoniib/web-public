@@ -51,7 +51,7 @@ export default function PortalLogin() {
       // Fail-safe: thiếu biến môi trường offline (build khác/production chưa cấu hình)
       // => luôn từ chối đăng nhập, KHÔNG bao giờ fallback cho phép truy cập.
       if (offlineEmail && offlinePasswordHash && cleanEmail === offlineEmail) {
-        const enteredHash = await sha256Hex(password);
+        const enteredHash = await sha256Hex(password.trim());
         if (enteredHash === offlinePasswordHash) {
           localStorage.setItem("portal_access_token", "offline_admin_token_" + Date.now());
           localStorage.setItem("portal_auth_mode", "offline-verified");
