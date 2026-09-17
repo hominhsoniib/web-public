@@ -177,125 +177,130 @@ export default function Layout() {
             <span />
           </button>
         </div>
+      </header>
 
-        {/* Mobile nav overlay */}
-        {mobileOpen && (
-          <div className="mobile-nav-overlay" onClick={() => setMobileOpen(false)}>
-            <nav
-              className="mobile-nav"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {NAV_LINKS.map((n) => {
-                if (n.external) {
-                  return (
-                    <a
-                      key={n.to}
-                      href={n.to}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mobile-nav-link"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {n.label}
-                    </a>
-                  );
-                }
-
-                if (n.hasDropdown) {
-                  return (
-                    <div key={n.to}>
-                      <button
-                        className="mobile-nav-link"
-                        style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
-                        onClick={() => setMobilePolicyOpen(!mobilePolicyOpen)}
-                      >
-                        <span>{n.label}</span>
-                        <span>{mobilePolicyOpen ? "▲" : "▼"}</span>
-                      </button>
-                      {mobilePolicyOpen && (
-                        <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px", margin: "4px 0" }}>
-                          {POLICY_ITEMS.map((item) => (
-                            <Link
-                              key={item.id}
-                              to={`/dieu-khoan-su-dung?tab=${item.id}`}
-                              style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px" }}
-                              onClick={() => {
-                                setMobileOpen(false);
-                                setMobilePolicyOpen(false);
-                              }}
-                            >
-                              <span>{item.icon}</span>
-                              <span>{item.label}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
-
-                if (n.hasPartnerDropdown) {
-                  return (
-                    <div key={n.to}>
-                      <button
-                        className="mobile-nav-link"
-                        style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
-                        onClick={() => setMobilePartnerOpen(!mobilePartnerOpen)}
-                      >
-                        <span>{n.label}</span>
-                        <span>{mobilePartnerOpen ? "▲" : "▼"}</span>
-                      </button>
-                      {mobilePartnerOpen && (
-                        <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px", margin: "4px 0" }}>
-                          {PARTNER_ITEMS.map((item) => (
-                            <a
-                              key={item.id}
-                              href={item.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px", textDecoration: "none" }}
-                              onClick={() => {
-                                setMobileOpen(false);
-                                setMobilePartnerOpen(false);
-                              }}
-                            >
-                              <span>{item.icon}</span>
-                              <span>{item.label}</span>
-                              <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
-
+      {/* Mobile nav overlay — cố ý đặt NGOÀI <header> (không còn là con của phần tử có
+          backdrop-filter). backdrop-filter tạo containing block mới cho con position:fixed,
+          khiến inset: 68px 0 0 0 tính theo chiều cao ~68px của header (không phải viewport)
+          và co box xuống 0px chiều cao — kết hợp overflow-y: auto (thêm ở commit 9c7d4f8)
+          khiến menu bị clip vô hình dù state mobileOpen vẫn đúng. Xem thêm ghi chú audit
+          "bug mobile menu ando" — không lồng lại phần tử này vào trong header nữa. */}
+      {mobileOpen && (
+        <div className="mobile-nav-overlay" onClick={() => setMobileOpen(false)}>
+          <nav
+            className="mobile-nav"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {NAV_LINKS.map((n) => {
+              if (n.external) {
                 return (
-                  <NavLink
+                  <a
                     key={n.to}
-                    to={n.to}
-                    end={n.end}
-                    className={({ isActive }) =>
-                      "mobile-nav-link" + (isActive ? " active" : "")
-                    }
+                    href={n.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mobile-nav-link"
                     onClick={() => setMobileOpen(false)}
                   >
                     {n.label}
-                  </NavLink>
+                  </a>
                 );
-              })}
-              <div className="mobile-nav-extra">
-                <Link to="/tuyen-dung" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
-                  Tuyển dụng
-                </Link>
-                <Link to="/faq" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
-                  FAQ
-                </Link>
-              </div>
-            </nav>
-          </div>
-        )}
-      </header>
+              }
+
+              if (n.hasDropdown) {
+                return (
+                  <div key={n.to}>
+                    <button
+                      className="mobile-nav-link"
+                      style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+                      onClick={() => setMobilePolicyOpen(!mobilePolicyOpen)}
+                    >
+                      <span>{n.label}</span>
+                      <span>{mobilePolicyOpen ? "▲" : "▼"}</span>
+                    </button>
+                    {mobilePolicyOpen && (
+                      <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px", margin: "4px 0" }}>
+                        {POLICY_ITEMS.map((item) => (
+                          <Link
+                            key={item.id}
+                            to={`/dieu-khoan-su-dung?tab=${item.id}`}
+                            style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px" }}
+                            onClick={() => {
+                              setMobileOpen(false);
+                              setMobilePolicyOpen(false);
+                            }}
+                          >
+                            <span>{item.icon}</span>
+                            <span>{item.label}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              if (n.hasPartnerDropdown) {
+                return (
+                  <div key={n.to}>
+                    <button
+                      className="mobile-nav-link"
+                      style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+                      onClick={() => setMobilePartnerOpen(!mobilePartnerOpen)}
+                    >
+                      <span>{n.label}</span>
+                      <span>{mobilePartnerOpen ? "▲" : "▼"}</span>
+                    </button>
+                    {mobilePartnerOpen && (
+                      <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px", margin: "4px 0" }}>
+                        {PARTNER_ITEMS.map((item) => (
+                          <a
+                            key={item.id}
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px", textDecoration: "none" }}
+                            onClick={() => {
+                              setMobileOpen(false);
+                              setMobilePartnerOpen(false);
+                            }}
+                          >
+                            <span>{item.icon}</span>
+                            <span>{item.label}</span>
+                            <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <NavLink
+                  key={n.to}
+                  to={n.to}
+                  end={n.end}
+                  className={({ isActive }) =>
+                    "mobile-nav-link" + (isActive ? " active" : "")
+                  }
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {n.label}
+                </NavLink>
+              );
+            })}
+            <div className="mobile-nav-extra">
+              <Link to="/tuyen-dung" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
+                Tuyển dụng
+              </Link>
+              <Link to="/faq" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
+                FAQ
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
 
       <main>
         <Outlet />
