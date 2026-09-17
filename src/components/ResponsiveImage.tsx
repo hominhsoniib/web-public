@@ -30,18 +30,23 @@ export default function ResponsiveImage({
   height,
 }: ResponsiveImageProps) {
   const widths = imageManifest[src];
+  const dot = src.lastIndexOf(".");
+  const webpSrc = dot > 0 ? `${src.slice(0, dot)}.webp` : src;
 
   if (!widths || widths.length === 0) {
     return (
-      <img
-        src={versionedImageSrc(src)}
-        alt={alt}
-        className={className}
-        style={style}
-        loading={loading}
-        width={width}
-        height={height}
-      />
+      <picture>
+        <source type="image/webp" srcSet={versionedImageSrc(webpSrc)} />
+        <img
+          src={versionedImageSrc(src)}
+          alt={alt}
+          className={className}
+          style={style}
+          loading={loading}
+          width={width}
+          height={height}
+        />
+      </picture>
     );
   }
 
