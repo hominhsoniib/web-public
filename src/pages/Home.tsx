@@ -3,10 +3,19 @@ import { Link } from "react-router-dom";
 
 import ResponsiveImage from "../components/ResponsiveImage";
 import Seo from "../components/Seo";
+import YouTubeFacade from "../components/YouTubeFacade";
 import { blog, fmtDate, product, type PostListItem, type ProductListItem } from "../lib/api";
 import { fmtVnd } from "../lib/api";
 
 const SITE = import.meta.env.VITE_SITE_URL ?? "http://localhost:4174";
+
+const INTRO_VIDEOS = [
+  { id: "wtxXklOBhgE", title: "Video giới thiệu Bà Đen Farm #1" },
+  { id: "-vmvlboyWPQ", title: "Video giới thiệu Bà Đen Farm #2" },
+  { id: "pp4PH2AByZk", title: "Video giới thiệu Bà Đen Farm #3" },
+  { id: "t7tI6t-nH5E", title: "Video giới thiệu Bà Đen Farm #4" },
+  { id: "qD9Hduf7tP4", title: "Video giới thiệu Bà Đen Farm #5" },
+];
 
 export default function Home() {
   const [posts, setPosts] = useState<PostListItem[]>([]);
@@ -153,6 +162,18 @@ export default function Home() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* Video giới thiệu */}
+      <section className="container section">
+        <div className="section-head">
+          <h2>Video giới thiệu</h2>
+        </div>
+        <div className="video-grid">
+          {INTRO_VIDEOS.map((v) => (
+            <YouTubeFacade key={v.id} videoId={v.id} title={v.title} />
+          ))}
+        </div>
       </section>
     </>
   );
