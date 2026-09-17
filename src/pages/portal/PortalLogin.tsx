@@ -4,6 +4,16 @@ import { useNavigate } from "react-router-dom";
 import ResponsiveImage from "../../components/ResponsiveImage";
 import { portalApi } from "../../lib/portalApi";
 
+/** Hash SHA-256 (hex, lowercase) bằng Web Crypto API — dùng để so khớp với
+ * VITE_OFFLINE_ADMIN_PASSWORD_SHA256 mà không bao giờ so sánh plaintext. */
+async function sha256Hex(text: string): Promise<string> {
+  const data = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 export default function PortalLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -17,8 +27,6 @@ export default function PortalLogin() {
     setError("");
     setLoading(true);
 
-    const savedAdminPass = localStorage.getItem("admin_password");
-    const expectedPass = savedAdminPass || "Badenfarm@8959";
     const cleanEmail = email.trim().toLowerCase();
 
     try {
@@ -31,18 +39,25 @@ export default function PortalLogin() {
       }
       navigate("/portal");
     } catch {
-      // Offline fallback khi không có backend server:
-      if (
-        password === expectedPass ||
-        password === "Badenfarm@8959" ||
-        password === "123456" ||
-        cleanEmail.includes("admin") ||
-        cleanEmail.includes("badenfarm")
-      ) {
-        localStorage.setItem("portal_access_token", "mock_admin_token_" + Date.now());
-        localStorage.setItem("portal_auth_mode", "offline-verified");
-        navigate("/portal");
-        return;
+      // TODO(migrate-to-backend): offline SHA256 fallback — replace with real server-side
+      // auth (Vercel Serverless Function) once backend exists. See portalApi.ts.
+      const offlineEmail = (import.meta.env.VITE_OFFLINE_ADMIN_EMAIL as string | undefined)
+        ?.trim()
+        .toLowerCase();
+      const offlinePasswordHash = (
+        import.meta.env.VITE_OFFLINE_ADMIN_PASSWORD_SHA256 as string | undefined
+      )?.trim().toLowerCase();
+
+      // Fail-safe: thiếu biến môi trường offline (build khác/production chưa cấu hình)
+      // => luôn từ chối đăng nhập, KHÔNG bao giờ fallback cho phép truy cập.
+      if (offlineEmail && offlinePasswordHash && cleanEmail === offlineEmail) {
+        const enteredHash = await sha256Hex(password);
+        if (enteredHash === offlinePasswordHash) {
+          localStorage.setItem("portal_access_token", "offline_admin_token_" + Date.now());
+          localStorage.setItem("portal_auth_mode", "offline-verified");
+          navigate("/portal");
+          return;
+        }
       }
 
       setError("Đăng nhập thất bại. Vui lòng kiểm tra lại email/mật khẩu hoặc thử lại sau.");

@@ -1,5 +1,15 @@
 import axios from "axios";
 
+// TODO(migrate-to-backend): toàn bộ portalApi hiện chạy dựa trên: (1) gọi backend
+// thật nếu có (VITE_API_URL), và (2) khi backend không phản hồi, PortalLogin.tsx
+// dùng fallback offline SHA256 (VITE_OFFLINE_ADMIN_EMAIL / VITE_OFFLINE_ADMIN_PASSWORD_SHA256
+// trong .env.local) để cho phép admin duy nhất đăng nhập tạm thời. Khi có backend
+// thật, cần: (a) xoá fallback offline trong PortalLogin.tsx, (b) chuyển việc kiểm tra
+// mật khẩu admin sang một Vercel Serverless Function (vd. /api/admin-login) giữ
+// credential check hoàn toàn phía server, không expose hash ra client bundle nữa,
+// (c) thay saveProducts()/getProducts() và các hàm đọc/ghi localStorage khác trong
+// file này bằng gọi API CRUD thật, xoá localStorage["custom_mock_products"].
+
 // Support dynamic URL via query param or localStorage for easier mobile testing
 const urlParams = new URLSearchParams(window.location.search);
 const apiParam = urlParams.get("api");
