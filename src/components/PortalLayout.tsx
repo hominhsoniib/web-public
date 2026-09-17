@@ -31,6 +31,27 @@ export default function PortalLayout() {
       return;
     }
 
+    if (localStorage.getItem("portal_auth_mode") === "offline-verified") {
+      // Đã xác thực bằng offline-fallback lúc đăng nhập (không có backend) —
+      // không gọi lại getProfile() qua mạng (chắc chắn sẽ lỗi vì không có
+      // backend), dùng luôn hồ sơ admin cố định. Xem TODO trong portalApi.ts.
+      queueMicrotask(() => {
+        setProfile({
+          id: "admin-1",
+          code: "ADMIN-001",
+          name: "Ban Quản Trị Bà Đen Farm",
+          tier: "Admin",
+          region: "Tây Ninh",
+          credit_limit: 1000000000,
+          payment_term_days: 30,
+          status: "active",
+          balance: 0,
+        });
+        setLoading(false);
+      });
+      return;
+    }
+
     portalApi.getProfile()
       .then(res => {
         setProfile(res);
@@ -47,6 +68,7 @@ export default function PortalLayout() {
 
   const handleLogout = () => {
     localStorage.removeItem("portal_access_token");
+    localStorage.removeItem("portal_auth_mode");
     navigate("/portal/login");
   };
 

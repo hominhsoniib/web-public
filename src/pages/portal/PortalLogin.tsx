@@ -19,6 +19,11 @@ export default function PortalLogin() {
     try {
       const data = await portalApi.login(email, password);
       localStorage.setItem("portal_access_token", data.access_token);
+      if (data.auth_mode === "offline") {
+        localStorage.setItem("portal_auth_mode", "offline-verified");
+      } else {
+        localStorage.removeItem("portal_auth_mode");
+      }
       navigate("/portal");
     } catch {
       setError("Đăng nhập thất bại. Vui lòng kiểm tra lại email/mật khẩu hoặc thử lại sau.");

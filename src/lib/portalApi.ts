@@ -160,6 +160,48 @@ function saveStoredProducts(products: PortalProduct[]): void {
   localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
 }
 
+/**
+ * ============================================================================
+ * TODO(migrate-to-backend): Offline-fallback đăng nhập admin — GIẢI PHÁP TẠM.
+ * Chỉ tồn tại vì hiện chưa có backend thật (badenfarm.com.vn không có API nào
+ * phản hồi — đã audit xác nhận). Khi có backend thật, XÓA toàn bộ cơ chế này
+ * (sha256Hex, tryOfflineAdminLogin, nhánh catch bên dưới trong login(), và
+ * VITE_OFFLINE_ADMIN_* trong .env.local/.env.example) và thay bằng 1 Vercel
+ * Serverless Function (VD /api/admin-login) giữ credential + so khớp ở phía
+ * server — vì bất kỳ check nào chạy trong trình duyệt (kể cả hash) đều có thể
+ * bị bypass hoàn toàn qua DevTools, không phải bảo mật thật.
+ * ============================================================================
+ */
+async function sha256Hex(text: string): Promise<string> {
+  const bytes = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+interface OfflineLoginResult {
+  access_token: string;
+  auth_mode: "offline";
+}
+
+/** Chỉ được gọi khi backend KHÔNG phản hồi (network error/timeout) — xem
+ * login() bên dưới. Không bao giờ dùng để ghi đè một lỗi 401/403 thật. */
+async function tryOfflineAdminLogin(
+  email: string,
+  password: string,
+): Promise<OfflineLoginResult | null> {
+  const offlineEmail = import.meta.env.VITE_OFFLINE_ADMIN_EMAIL as string | undefined;
+  const offlinePasswordHash = import.meta.env.VITE_OFFLINE_ADMIN_PASSWORD_SHA256 as string | undefined;
+  if (!offlineEmail || !offlinePasswordHash) return null;
+  if (email.trim().toLowerCase() !== offlineEmail.trim().toLowerCase()) return null;
+
+  const hash = await sha256Hex(password);
+  if (hash !== offlinePasswordHash) return null;
+
+  return { access_token: "offline-verified", auth_mode: "offline" };
+}
+
 export const portalApi = {
   // Authentication (dùng chung API đăng nhập)
   login: async (email: string, password: string) => {
@@ -167,8 +209,19 @@ export const portalApi = {
     const formData = new FormData();
     formData.append("username", email);
     formData.append("password", password);
-    const res = await portalClient.post("/api/v1/auth/login", formData);
-    return res.data.data;
+    try {
+      const res = await portalClient.post("/api/v1/auth/login", formData);
+      return res.data.data;
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        // Backend có phản hồi nhưng từ chối (401/403/500...) — lỗi thật, không fallback.
+        throw err;
+      }
+      // Không có response = không có backend nào đang chạy (network error/timeout).
+      const offline = await tryOfflineAdminLogin(email, password);
+      if (offline) return offline;
+      throw err;
+    }
   },
   
   // Profile
