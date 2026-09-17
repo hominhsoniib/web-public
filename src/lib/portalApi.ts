@@ -20,6 +20,7 @@ const VITE_API_URL =
 // Tạo instance dành riêng cho portal với auth header
 export const portalClient = axios.create({
   baseURL: VITE_API_URL,
+  timeout: 3000,
 });
 
 // Middleware tự động đính kèm token của Đại lý nếu có

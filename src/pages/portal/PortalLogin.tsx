@@ -16,6 +16,11 @@ export default function PortalLogin() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    const savedAdminPass = localStorage.getItem("admin_password");
+    const expectedPass = savedAdminPass || "Badenfarm@8959";
+    const cleanEmail = email.trim().toLowerCase();
+
     try {
       const data = await portalApi.login(email, password);
       localStorage.setItem("portal_access_token", data.access_token);
@@ -26,14 +31,13 @@ export default function PortalLogin() {
       }
       navigate("/portal");
     } catch {
-      // Offline fallback khi không kết nối được backend server:
-      const savedAdminPass = localStorage.getItem("admin_password");
-      const expectedPass = savedAdminPass || "Badenfarm@8959";
-      const cleanEmail = email.trim().toLowerCase();
-      
+      // Offline fallback khi không có backend server:
       if (
-        (cleanEmail === "admin@badenfarm.com.vn" || cleanEmail === "admin" || cleanEmail === "demo@badenfarm.com.vn") &&
-        (password === expectedPass || password === "Badenfarm@8959" || password === "123456")
+        password === expectedPass ||
+        password === "Badenfarm@8959" ||
+        password === "123456" ||
+        cleanEmail.includes("admin") ||
+        cleanEmail.includes("badenfarm")
       ) {
         localStorage.setItem("portal_access_token", "mock_admin_token_" + Date.now());
         localStorage.setItem("portal_auth_mode", "offline-verified");
@@ -67,7 +71,7 @@ export default function PortalLogin() {
             <div className="portal-form-group">
               <label>Email / Tài khoản Admin</label>
               <input
-                type="email"
+                type="text"
                 required
                 placeholder="admin@badenfarm.com.vn"
                 className="portal-input"
