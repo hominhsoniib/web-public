@@ -10,16 +10,22 @@ import axios from "axios";
 // (c) thay saveProducts()/getProducts() và các hàm đọc/ghi localStorage khác trong
 // file này bằng gọi API CRUD thật, xoá localStorage["custom_mock_products"].
 
-// Support dynamic URL via query param or localStorage for easier mobile testing
-const urlParams = new URLSearchParams(window.location.search);
-const apiParam = urlParams.get("api");
-if (apiParam) {
-  localStorage.setItem("VITE_API_BASE_URL", apiParam);
-  const apiDomain = apiParam.replace("/api/v1", "");
-  localStorage.setItem("VITE_API_URL", apiDomain);
+// Chỉ cho phép override API URL qua query param / localStorage khi chạy `vite dev`
+// cục bộ (import.meta.env.DEV) — tiện để test trên thiết bị mobile thật trỏ vào máy
+// dev. Trên production build, BỎ QUA hoàn toàn cơ chế này: nếu không, một link
+// ?api=https://evil.tld sẽ ghi đè vĩnh viễn API URL vào localStorage của nạn nhân,
+// khiến request đăng nhập portal (chứa email/mật khẩu) bị gửi tới domain kẻ tấn công.
+if (import.meta.env.DEV) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const apiParam = urlParams.get("api");
+  if (apiParam) {
+    localStorage.setItem("VITE_API_BASE_URL", apiParam);
+    const apiDomain = apiParam.replace("/api/v1", "");
+    localStorage.setItem("VITE_API_URL", apiDomain);
+  }
 }
 
-const savedApiUrl = localStorage.getItem("VITE_API_URL");
+const savedApiUrl = import.meta.env.DEV ? localStorage.getItem("VITE_API_URL") : null;
 const VITE_API_URL =
   savedApiUrl ||
   (import.meta.env.VITE_API_URL as string | undefined) ||
