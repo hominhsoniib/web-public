@@ -15,6 +15,10 @@ export const POLICY_ITEMS = [
   { id: "van-chuyen", label: "Chính sách vận chuyển và giao nhận", icon: "🚚" },
 ];
 
+export const PARTNER_ITEMS = [
+  { id: "htx-369", label: "HTX GD 369", url: "https://369-daotao.vercel.app/", icon: "🏫" },
+];
+
 const NAV_LINKS = [
   { to: "/", label: "Trang chủ", end: true },
   { to: "/gioi-thieu", label: "Giới thiệu" },
@@ -23,6 +27,7 @@ const NAV_LINKS = [
   { to: "/dai-ly", label: "Đại lý" },
   { to: "/blog", label: "Blog" },
   { to: "/dieu-khoan-su-dung", label: "ĐIỀU KHOẢN SỬ DỤNG", hasDropdown: true },
+  { to: "#partner", label: "Đối tác", hasPartnerDropdown: true },
   { to: "https://sambochinh.badenfarm.com.vn/", label: "Landing Page", external: true },
   { to: "/lien-he", label: "Liên hệ" },
 ];
@@ -30,7 +35,9 @@ const NAV_LINKS = [
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [partnerDropdownOpen, setPartnerDropdownOpen] = useState(false);
   const [mobilePolicyOpen, setMobilePolicyOpen] = useState(false);
+  const [mobilePartnerOpen, setMobilePartnerOpen] = useState(false);
 
   return (
     <>
@@ -94,6 +101,44 @@ export default function Layout() {
                             <span className="dropdown-icon">{item.icon}</span>
                             <span>{item.label}</span>
                           </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              if (n.hasPartnerDropdown) {
+                return (
+                  <div
+                    key={n.to}
+                    className="nav-dropdown-wrapper"
+                    onMouseEnter={() => setPartnerDropdownOpen(true)}
+                    onMouseLeave={() => setPartnerDropdownOpen(false)}
+                  >
+                    <span
+                      className="site-nav-link"
+                      style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "2px" }}
+                    >
+                      <span>{n.label}</span>
+                      <span style={{ fontSize: "10px", marginLeft: "2px", transition: "transform 0.2s ease", transform: partnerDropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+                    </span>
+
+                    {partnerDropdownOpen && (
+                      <div className="nav-dropdown-menu" style={{ width: "240px" }}>
+                        {PARTNER_ITEMS.map((item) => (
+                          <a
+                            key={item.id}
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="dropdown-item"
+                            onClick={() => setPartnerDropdownOpen(false)}
+                          >
+                            <span className="dropdown-icon">{item.icon}</span>
+                            <span>{item.label}</span>
+                            <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
+                          </a>
                         ))}
                       </div>
                     )}
@@ -182,6 +227,42 @@ export default function Layout() {
                               <span>{item.icon}</span>
                               <span>{item.label}</span>
                             </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                if (n.hasPartnerDropdown) {
+                  return (
+                    <div key={n.to}>
+                      <button
+                        className="mobile-nav-link"
+                        style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+                        onClick={() => setMobilePartnerOpen(!mobilePartnerOpen)}
+                      >
+                        <span>{n.label}</span>
+                        <span>{mobilePartnerOpen ? "▲" : "▼"}</span>
+                      </button>
+                      {mobilePartnerOpen && (
+                        <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px", margin: "4px 0" }}>
+                          {PARTNER_ITEMS.map((item) => (
+                            <a
+                              key={item.id}
+                              href={item.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px", textDecoration: "none" }}
+                              onClick={() => {
+                                setMobileOpen(false);
+                                setMobilePartnerOpen(false);
+                              }}
+                            >
+                              <span>{item.icon}</span>
+                              <span>{item.label}</span>
+                              <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
+                            </a>
                           ))}
                         </div>
                       )}
