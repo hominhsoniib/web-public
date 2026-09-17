@@ -88,6 +88,12 @@ export const portalApi = {
     } catch {
       // Fallback
     }
+    const saved = localStorage.getItem("custom_mock_products");
+    if (saved) {
+      try {
+        return JSON.parse(saved) as PortalProduct[];
+      } catch {}
+    }
     return [
       { id: "p-bot-sam", sku: "SBD-BOT-100", name: "Bột Sâm Bà Đen Nguyên Chất (100g)", image_url: "/images/products/bot-sam.jpg", unit: "Hũ", base_price: 350000, dealer_price: 280000, discount_percent: 20, in_stock: true },
       { id: "p-ruou-dvt", sku: "SBD-RDVT-750", name: "Rượu Sâm Đương Quy Tây Ninh (750ml)", image_url: "/images/products/ruou-dvt.png", unit: "Chai", base_price: 850000, dealer_price: 680000, discount_percent: 20, in_stock: true },
@@ -100,6 +106,10 @@ export const portalApi = {
       { id: "p-set-lau", sku: "SBD-LAU-GD", name: "Set Lẩu Sâm Bà Đen Gia Đình (2-4 người)", image_url: "/images/products/set-lau.png", unit: "Set", base_price: 290000, dealer_price: 232000, discount_percent: 20, in_stock: true },
       { id: "p-tra-hoa-sam", sku: "SBD-THS-80", name: "Trà Hoa Sâm Bà Đen (80g)", image_url: "/images/products/tra-hoa-sam.png", unit: "Hũ", base_price: 220000, dealer_price: 176000, discount_percent: 20, in_stock: true }
     ];
+  },
+
+  saveProducts: (products: PortalProduct[]) => {
+    localStorage.setItem("custom_mock_products", JSON.stringify(products));
   },
 
   // Orders

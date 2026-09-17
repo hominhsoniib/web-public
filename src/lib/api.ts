@@ -445,7 +445,40 @@ export const product = {
     } catch {
       // Fallback when API offline or empty
     }
-    const listItems: ProductListItem[] = MOCK_PRODUCTS.map((p) => ({
+
+    const savedPortalProducts = localStorage.getItem("custom_mock_products");
+    let activeProducts: ProductDetail[] = MOCK_PRODUCTS;
+
+    if (savedPortalProducts) {
+      try {
+        const portalProds = JSON.parse(savedPortalProducts);
+        activeProducts = portalProds.map((p: any) => {
+          const foundMock = MOCK_PRODUCTS.find(m => m.id === p.id);
+          const slug = p.slug || p.id || p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+          return {
+            id: p.id,
+            name: p.name,
+            slug: slug,
+            short_desc: p.description || p.short_desc || "",
+            description: p.description || foundMock?.description || "",
+            reference_price: p.base_price ?? p.reference_price,
+            unit: p.unit || "Hộp",
+            status: "published",
+            category: foundMock?.category || { id: "c-1", name: "Sâm Chế Biến Sâu", slug: "che-bien-sau" },
+            images: [
+              { id: `img-${p.id}`, image_url: p.image_url || "/images/products/bot-sam.jpg", alt_text: p.name, is_primary: true, sort_order: 1 }
+            ],
+            seo: { title: p.name, robots: "index,follow" },
+            json_ld: [],
+            related: []
+          };
+        });
+      } catch {
+        activeProducts = MOCK_PRODUCTS;
+      }
+    }
+
+    const listItems: ProductListItem[] = activeProducts.map((p) => ({
       id: p.id,
       name: p.name,
       slug: p.slug,
@@ -470,11 +503,44 @@ export const product = {
     } catch {
       // Fallback when API offline
     }
-    const found = MOCK_PRODUCTS.find((p) => p.slug === slug);
+
+    const savedPortalProducts = localStorage.getItem("custom_mock_products");
+    let activeProducts: ProductDetail[] = MOCK_PRODUCTS;
+
+    if (savedPortalProducts) {
+      try {
+        const portalProds = JSON.parse(savedPortalProducts);
+        activeProducts = portalProds.map((p: any) => {
+          const foundMock = MOCK_PRODUCTS.find(m => m.id === p.id);
+          const pSlug = p.slug || p.id || p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+          return {
+            id: p.id,
+            name: p.name,
+            slug: pSlug,
+            short_desc: p.description || p.short_desc || "",
+            description: p.description || foundMock?.description || `<p>${p.name}</p>`,
+            reference_price: p.base_price ?? p.reference_price,
+            unit: p.unit || "Hộp",
+            status: "published",
+            category: foundMock?.category || { id: "c-1", name: "Sâm Chế Biến Sâu", slug: "che-bien-sau" },
+            images: [
+              { id: `img-${p.id}`, image_url: p.image_url || "/images/products/bot-sam.jpg", alt_text: p.name, is_primary: true, sort_order: 1 }
+            ],
+            seo: { title: p.name, robots: "index,follow" },
+            json_ld: [],
+            related: []
+          };
+        });
+      } catch {
+        activeProducts = MOCK_PRODUCTS;
+      }
+    }
+
+    const found = activeProducts.find((p) => p.slug === slug || p.id === slug);
     if (!found) return null;
     return {
       ...found,
-      related: MOCK_PRODUCTS.filter((p) => p.slug !== slug).slice(0, 3).map((p) => ({
+      related: activeProducts.filter((p) => p.slug !== found.slug).slice(0, 3).map((p) => ({
         id: p.id,
         name: p.name,
         slug: p.slug,
