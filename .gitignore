@@ -29,3 +29,6 @@ su-menh-tam-nhin/
 
 .vercel
 .env*
+videos/*.mp4
+videos/*.MP4
+scratch_titles.json

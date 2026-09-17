@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
+import ResponsiveImage from "./ResponsiveImage";
+
 const FB_URL = "https://www.facebook.com/people/S%C3%A2m-B%E1%BB%91-Ch%C3%ADnh-B%C3%A0-%C4%90en-Farm/100076325312382/";
 
 export const POLICY_ITEMS = [
@@ -35,7 +37,13 @@ export default function Layout() {
       <header className="site-header">
         <div className="container site-header-inner">
           <Link to="/" className="site-logo" onClick={() => setMobileOpen(false)}>
-            <img src="/images/logo.jpg" alt="Bà Đen Farm" style={{ height: "40px", width: "40px", objectFit: "cover", borderRadius: "8px" }} />
+            <ResponsiveImage
+              src="/images/logo-black.png"
+              alt="Bà Đen Farm"
+              sizes="40px"
+              loading="eager"
+              style={{ height: "40px", width: "40px", objectFit: "cover", borderRadius: "8px" }}
+            />
             <span className="site-logo-name">Bà Đen Farm</span>
           </Link>
 
@@ -216,7 +224,12 @@ export default function Layout() {
         <div className="container footer-grid">
           <div>
             <div className="footer-brand" style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-              <img src="/images/logo.jpg" alt="Bà Đen Farm" style={{ height: "36px", width: "36px", objectFit: "cover", borderRadius: "6px" }} />
+              <ResponsiveImage
+                src="/images/logo-gold.png"
+                alt="Bà Đen Farm"
+                sizes="36px"
+                style={{ height: "36px", width: "36px", objectFit: "cover", borderRadius: "6px" }}
+              />
               <span className="site-logo-name" style={{ color: "#fff", fontSize: "20px" }}>Bà Đen Farm</span>
             </div>
             <p className="footer-tagline">
