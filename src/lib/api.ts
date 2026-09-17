@@ -16,7 +16,10 @@ const BASE_URL =
     ? "https://sambaden-api.loca.lt/api/v1"
     : `${window.location.protocol}//${window.location.hostname}:8000/api/v1`);
 
-export const api = axios.create({ baseURL: BASE_URL });
+export const api = axios.create({
+  baseURL: BASE_URL,
+  timeout: 2500,
+});
 
 // Gắn Bypass-Tunnel-Reminder header để tránh trang cảnh báo của localtunnel
 api.interceptors.request.use((config) => {
