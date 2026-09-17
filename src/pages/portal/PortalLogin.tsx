@@ -21,9 +21,7 @@ export default function PortalLogin() {
       localStorage.setItem("portal_access_token", data.access_token);
       navigate("/portal");
     } catch {
-      // Khi API offline trên Vercel, tự động xác thực cho Admin đăng nhập thành công
-      localStorage.setItem("portal_access_token", "demo-token-admin");
-      navigate("/portal");
+      setError("Đăng nhập thất bại. Vui lòng kiểm tra lại email/mật khẩu hoặc thử lại sau.");
     } finally {
       setLoading(false);
     }

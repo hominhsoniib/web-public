@@ -36,4 +36,15 @@ export default defineConfig({
   define: {
     __ASSET_VERSION__: JSON.stringify(assetVersion),
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
+      },
+    },
+  },
 })

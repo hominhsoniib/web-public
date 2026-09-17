@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { versionedImageSrc } from "../../lib/assetVersion";
-import { portalApi, type PortalProduct } from "../../lib/portalApi";
+import {
+  portalApi,
+  generateUniqueProductSlug,
+  stripHtml,
+  PRODUCT_CATEGORIES,
+  type PortalProduct,
+} from "../../lib/portalApi";
 
 export default function PortalProducts() {
   const [products, setProducts] = useState<PortalProduct[]>([]);
@@ -68,6 +74,7 @@ export default function PortalProducts() {
       id: `p-${Date.now()}`,
       sku: "",
       name: "",
+      category: PRODUCT_CATEGORIES[0],
       image_url: "",
       description: "",
       unit: "Hũ",
@@ -114,17 +121,30 @@ export default function PortalProducts() {
       ? Math.round((1 - dealerPrice / basePrice) * 100)
       : 0;
 
+    const id = editingProduct.id || `p-${Date.now()}`;
+    const imageUrl = editingProduct.image_url || undefined;
+    const description = editingProduct.description || undefined;
+    const category = editingProduct.category || PRODUCT_CATEGORIES[0];
+    const seoDescription = description ? stripHtml(description) : undefined;
+
     const productData: PortalProduct = {
-      id: editingProduct.id || `p-${Date.now()}`,
+      id,
       sku: (editingProduct.sku || `SBD-${Date.now()}`).trim(),
       name,
-      image_url: editingProduct.image_url || undefined,
-      description: editingProduct.description || undefined,
+      slug: generateUniqueProductSlug(name, products, isNew ? undefined : id),
+      category,
+      image_url: imageUrl,
+      images: imageUrl
+        ? [{ id: `img-${id}`, image_url: imageUrl, alt_text: name, is_primary: true, sort_order: 1 }]
+        : [],
+      description,
       unit: (editingProduct.unit || "Sản phẩm").trim(),
       base_price: basePrice,
       dealer_price: dealerPrice,
       discount_percent: discountPercent,
       in_stock: editingProduct.in_stock ?? true,
+      seo: { title: name, description: seoDescription, robots: "index,follow" },
+      json_ld: [],
     };
 
     const updated = isNew
@@ -360,6 +380,21 @@ export default function PortalProducts() {
 
               <div className="portal-grid-2">
                 <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                  <label>Danh mục</label>
+                  <select
+                    value={editingProduct.category?.id || PRODUCT_CATEGORIES[0].id}
+                    onChange={(e) => {
+                      const cat = PRODUCT_CATEGORIES.find((c) => c.id === e.target.value);
+                      if (cat) setEditingProduct({ ...editingProduct, category: cat });
+                    }}
+                    className="portal-input"
+                  >
+                    {PRODUCT_CATEGORIES.map((c) => (
+                      <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="portal-form-group" style={{ marginBottom: 0 }}>
                   <label>Đơn vị tính</label>
                   <input
                     type="text"
@@ -369,16 +404,17 @@ export default function PortalProducts() {
                     className="portal-input"
                   />
                 </div>
-                <div className="portal-form-group" style={{ marginBottom: 0 }}>
-                  <label>Đường dẫn Hình ảnh (URL)</label>
-                  <input
-                    type="text"
-                    value={editingProduct.image_url || ""}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, image_url: e.target.value })}
-                    placeholder="/images/products/bot-sam.jpg"
-                    className="portal-input"
-                  />
-                </div>
+              </div>
+
+              <div className="portal-form-group" style={{ marginBottom: 0 }}>
+                <label>Đường dẫn Hình ảnh (URL)</label>
+                <input
+                  type="text"
+                  value={editingProduct.image_url || ""}
+                  onChange={(e) => setEditingProduct({ ...editingProduct, image_url: e.target.value })}
+                  placeholder="/images/products/bot-sam.jpg"
+                  className="portal-input"
+                />
               </div>
 
               <div className="portal-form-group" style={{ marginBottom: 0 }}>
