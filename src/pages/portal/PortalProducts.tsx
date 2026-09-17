@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { versionedImageSrc } from "../../lib/assetVersion";
+import { resizeImageToDataUrl } from "../../lib/imageResize";
 import {
   portalApi,
   generateUniqueProductSlug,
@@ -18,6 +19,9 @@ export default function PortalProducts() {
 
   const [editingProduct, setEditingProduct] = useState<Partial<PortalProduct> | null>(null);
   const [isNew, setIsNew] = useState(false);
+  const [imageUploadError, setImageUploadError] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const imageFileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     portalApi.getProducts()
@@ -70,6 +74,7 @@ export default function PortalProducts() {
 
   const handleOpenAdd = () => {
     setIsNew(true);
+    setImageUploadError("");
     setEditingProduct({
       id: `p-${Date.now()}`,
       sku: "",
@@ -84,7 +89,25 @@ export default function PortalProducts() {
 
   const handleOpenEdit = (product: PortalProduct) => {
     setIsNew(false);
+    setImageUploadError("");
     setEditingProduct({ ...product });
+  };
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // cho phép chọn lại đúng file đó lần sau
+    if (!file || !editingProduct) return;
+
+    setImageUploadError("");
+    setUploadingImage(true);
+    try {
+      const dataUrl = await resizeImageToDataUrl(file);
+      setEditingProduct({ ...editingProduct, image_url: dataUrl });
+    } catch (err) {
+      setImageUploadError(err instanceof Error ? err.message : "Không thể xử lý ảnh này.");
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   const handleDelete = async (id: string) => {
@@ -408,13 +431,49 @@ export default function PortalProducts() {
 
               <div className="portal-form-group" style={{ marginBottom: 0 }}>
                 <label>Đường dẫn Hình ảnh (URL)</label>
-                <input
-                  type="text"
-                  value={editingProduct.image_url || ""}
-                  onChange={(e) => setEditingProduct({ ...editingProduct, image_url: e.target.value })}
-                  placeholder="/images/products/bot-sam.jpg"
-                  className="portal-input"
-                />
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  {editingProduct.image_url && (
+                    <img
+                      src={editingProduct.image_url}
+                      alt="Xem trước"
+                      style={{ width: '52px', height: '52px', objectFit: 'contain', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#f8fafc', flexShrink: 0 }}
+                    />
+                  )}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <input
+                        type="text"
+                        value={editingProduct.image_url || ""}
+                        onChange={(e) => setEditingProduct({ ...editingProduct, image_url: e.target.value })}
+                        placeholder="/images/products/bot-sam.jpg"
+                        className="portal-input"
+                        style={{ flex: 1 }}
+                      />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        ref={imageFileInputRef}
+                        onChange={handleImageFileChange}
+                        style={{ display: 'none' }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => imageFileInputRef.current?.click()}
+                        disabled={uploadingImage}
+                        className="portal-btn-edit"
+                        style={{ whiteSpace: 'nowrap' }}
+                      >
+                        {uploadingImage ? "Đang xử lý..." : "📤 Tải ảnh lên"}
+                      </button>
+                    </div>
+                    {imageUploadError && (
+                      <p style={{ fontSize: '12px', color: '#dc2626', margin: '6px 0 0' }}>{imageUploadError}</p>
+                    )}
+                    <p style={{ fontSize: '12px', color: '#94a3b8', margin: '6px 0 0' }}>
+                      Ảnh tải lên sẽ tự resize/nén (tối đa 400KB) và lưu trực tiếp — hoặc gõ tay đường dẫn ảnh có sẵn trong /public/images/.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="portal-form-group" style={{ marginBottom: 0 }}>
