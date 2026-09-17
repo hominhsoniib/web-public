@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sinh thủ công từ danh sách route trong src/main.tsx (13 route public, trừ
+  /qr/:token — noindex, không có danh sách token cố định) và danh sách slug
+  trong MOCK_PRODUCTS / MOCK_POSTS (src/lib/api.ts). Khi thêm/sửa route hoặc
+  sản phẩm/bài viết mới, cập nhật file này theo (dài hạn nên tự sinh lúc build).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Trang tĩnh -->
+  <url>
+    <loc>https://badenfarm.com.vn/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/blog</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/gioi-thieu</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/vung-trong</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/dai-ly</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/lien-he</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/tuyen-dung</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/dieu-khoan-su-dung</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Chi tiết sản phẩm — slug từ MOCK_PRODUCTS trong src/lib/api.ts -->
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/bot-sam-ba-den</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/ruou-sam-duong-quy</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/ruou-sam-ba-den-thuong-hang</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/tra-sam-ba-den</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/binh-ruou-sam-nguyen-cu</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/cao-sam-ba-den</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/sam-say-kho-nguyen-cu</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/set-lau-sam-thuong-hang</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/set-lau-sam-gia-dinh</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/san-pham/tra-hoa-sam-ba-den</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Chi tiết bài viết Blog — slug từ MOCK_POSTS trong src/lib/api.ts -->
+  <url>
+    <loc>https://badenfarm.com.vn/blog/6-cong-dung-sam-bo-chinh</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/blog/lich-su-300-nam-sam-bo-chinh</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://badenfarm.com.vn/blog/huong-dan-su-dung-sam-bo-chinh</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

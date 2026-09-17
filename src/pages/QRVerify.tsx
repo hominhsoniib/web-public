@@ -31,6 +31,8 @@ export default function QRVerify() {
       <Helmet>
         <title>Xác thực sản phẩm chính hãng — Sâm Bà Đen</title>
         <meta name="description" content="Hệ thống xác thực mã QR chống hàng giả và truy xuất nguồn gốc Sâm Bà Đen Tây Ninh." />
+        {/* Mỗi token QR là 1 URL riêng biệt, không có giá trị SEO để index — loại khỏi sitemap.xml */}
+        <meta name="robots" content="noindex,follow" />
       </Helmet>
 
       <div style={{ maxWidth: "600px", margin: "0 auto" }}>
