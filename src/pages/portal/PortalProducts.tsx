@@ -133,6 +133,15 @@ export default function PortalProducts() {
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '24px', alignItems: 'start' }}>
       {/* Main Product Area */}
       <div>
+        <div className="portal-alert-warning">
+          <span aria-hidden="true">⚠️</span>
+          <span>
+            <strong>Lưu ý:</strong> Dữ liệu sản phẩm hiện chỉ lưu trên trình duyệt này (localStorage).
+            Xoá cache hoặc đổi thiết bị/trình duyệt sẽ mất toàn bộ chỉnh sửa. Hãy export backup định kỳ
+            (tính năng export sẽ được bổ sung sau).
+          </span>
+        </div>
+
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
           <div>
             <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: 0 }}>

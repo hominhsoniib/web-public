@@ -79,6 +79,15 @@ export default function PortalPosts() {
 
   return (
     <div style={{ maxWidth: '1000px' }}>
+      <div className="portal-alert-warning">
+        <span aria-hidden="true">⚠️</span>
+        <span>
+          <strong>Lưu ý:</strong> Dữ liệu bài viết hiện chỉ lưu trên trình duyệt này (localStorage).
+          Xoá cache hoặc đổi thiết bị/trình duyệt sẽ mất toàn bộ chỉnh sửa. Hãy export backup định kỳ
+          (tính năng export sẽ được bổ sung sau).
+        </span>
+      </div>
+
       <div className="portal-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <h2 className="portal-card-title">Quản lý Bài viết & Blog</h2>
