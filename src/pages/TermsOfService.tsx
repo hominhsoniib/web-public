@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Seo from "../components/Seo";
 
-const SITE = import.meta.env.VITE_SITE_URL ?? "https://badenfarm.com.vn";
+const SITE = import.meta.env.VITE_SITE_URL ?? "https://ando.badenfarm.com.vn";
 
 export interface PolicyTab {
   id: string;
