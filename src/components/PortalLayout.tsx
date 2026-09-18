@@ -114,6 +114,9 @@ export default function PortalLayout() {
           <Link to="/portal/orders" className={`portal-nav-link ${location.pathname.startsWith('/portal/orders') ? 'active' : ''}`}>
             🛒 Quản lý Đơn hàng
           </Link>
+          <Link to="/portal/partners" className={`portal-nav-link ${location.pathname.startsWith('/portal/partners') ? 'active' : ''}`}>
+            🤝 Quản lý Đối tác
+          </Link>
           <Link to="/portal/settings" className={`portal-nav-link ${location.pathname.startsWith('/portal/settings') ? 'active' : ''}`}>
             ⚙️ Cấu hình Website
           </Link>
@@ -141,6 +144,7 @@ export default function PortalLayout() {
             {location.pathname.startsWith('/portal/policies') && "Quản lý Điều khoản & 7 Chính sách Sử dụng"}
             {location.pathname.startsWith('/portal/products') && "Quản lý Danh mục Sản phẩm"}
             {location.pathname.startsWith('/portal/orders') && "Quản lý Đơn hàng & Đại lý"}
+            {location.pathname.startsWith('/portal/partners') && "Quản lý Danh sách Đối tác"}
             {location.pathname.startsWith('/portal/settings') && "Cấu hình Nội dung Website"}
             {location.pathname.startsWith('/portal/ledger') && "Quản lý Sổ cái & Thanh toán"}
           </h1>

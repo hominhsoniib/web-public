@@ -75,10 +75,15 @@ export default function PortalDashboard() {
         {/* Card 3: Quick Action */}
         <div style={{ background: 'linear-gradient(135deg, #0c2e12 0%, #166534 100%)', borderRadius: '16px', padding: '28px', color: '#ffffff', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', boxShadow: '0 10px 25px rgba(12, 46, 18, 0.2)' }}>
           <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 8px 0', color: '#facc15' }}>Tác vụ Nhanh Admin</h3>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.85)', margin: '0 0 20px 0' }}>Chỉnh sửa thông tin liên hệ, sứ mệnh & 7 điều khoản sử dụng website.</p>
-          <Link to="/portal/settings" style={{ padding: '10px 20px', background: '#eab308', color: '#0c2e12', fontWeight: 700, borderRadius: '8px', textDecoration: 'none', fontSize: '14px' }}>
-            ⚙️ Đến Cấu hình Website
-          </Link>
+          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.85)', margin: '0 0 16px 0' }}>Chỉnh sửa thông tin liên hệ, danh sách đối tác & điều khoản sử dụng website.</p>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Link to="/portal/partners" style={{ padding: '9px 16px', background: '#eab308', color: '#0c2e12', fontWeight: 700, borderRadius: '8px', textDecoration: 'none', fontSize: '13px' }}>
+              🤝 Quản lý Đối tác
+            </Link>
+            <Link to="/portal/settings" style={{ padding: '9px 16px', background: 'rgba(255,255,255,0.2)', color: '#ffffff', fontWeight: 700, borderRadius: '8px', textDecoration: 'none', fontSize: '13px' }}>
+              ⚙️ Cấu hình Website
+            </Link>
+          </div>
         </div>
 
       </div>

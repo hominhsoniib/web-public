@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const DEFAULT_POLICIES_ADMIN: Record<string, { title: string; description: string; contentText: string }> = {
   "bao-hanh": {
@@ -174,9 +175,14 @@ export default function PortalSettings() {
   return (
     <div style={{ maxWidth: '960px' }}>
       <div className="portal-card">
-        <div className="portal-card-header" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: 0 }}>
-          <h2 className="portal-card-title">Quản lý Cấu hình & Nội dung Website (Không cần lập trình)</h2>
-          <p className="portal-card-desc">Chỉnh sửa hotline, email, sứ mệnh, tầm nhìn và toàn bộ 7 chính sách điều khoản trực tiếp trên giao diện Admin này.</p>
+        <div className="portal-card-header" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+          <div>
+            <h2 className="portal-card-title">Quản lý Cấu hình & Nội dung Website (Không cần lập trình)</h2>
+            <p className="portal-card-desc">Chỉnh sửa hotline, email, sứ mệnh, tầm nhìn và toàn bộ 7 chính sách điều khoản trực tiếp trên giao diện Admin này.</p>
+          </div>
+          <Link to="/portal/partners" style={{ padding: '8px 16px', background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            🤝 Đi tới Quản lý Đối tác →
+          </Link>
         </div>
       </div>
 

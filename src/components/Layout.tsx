@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 import ResponsiveImage from "./ResponsiveImage";
-import AgeVerificationModal from "./AgeVerificationModal";
+import { getActivePartners, type PartnerItem } from "../lib/partners";
 
 const FB_URL = "https://www.facebook.com/people/S%C3%A2m-B%E1%BB%91-Ch%C3%ADnh-B%C3%A0-%C4%90en-Farm/100076325312382/";
 
@@ -39,10 +39,18 @@ export default function Layout() {
   const [partnerDropdownOpen, setPartnerDropdownOpen] = useState(false);
   const [mobilePolicyOpen, setMobilePolicyOpen] = useState(false);
   const [mobilePartnerOpen, setMobilePartnerOpen] = useState(false);
+  const [partners, setPartners] = useState<PartnerItem[]>(() => getActivePartners());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setPartners(getActivePartners());
+    };
+    window.addEventListener("partners_updated", handleUpdate);
+    return () => window.removeEventListener("partners_updated", handleUpdate);
+  }, []);
 
   return (
     <>
-      <AgeVerificationModal />
       <header className="site-header">
         <div className="container site-header-inner">
           <Link to="/" className="site-logo" onClick={() => setMobileOpen(false)}>
@@ -128,20 +136,24 @@ export default function Layout() {
 
                     {partnerDropdownOpen && (
                       <div className="nav-dropdown-menu" style={{ width: "240px" }}>
-                        {PARTNER_ITEMS.map((item) => (
-                          <a
-                            key={item.id}
-                            href={item.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="dropdown-item"
-                            onClick={() => setPartnerDropdownOpen(false)}
-                          >
-                            <span className="dropdown-icon">{item.icon}</span>
-                            <span>{item.label}</span>
-                            <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
-                          </a>
-                        ))}
+                        {partners.length === 0 ? (
+                          <div style={{ padding: "10px 14px", fontSize: "13px", color: "#64748b" }}>Chưa có đối tác</div>
+                        ) : (
+                          partners.map((item) => (
+                            <a
+                              key={item.id}
+                              href={item.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="dropdown-item"
+                              onClick={() => setPartnerDropdownOpen(false)}
+                            >
+                              <span className="dropdown-icon">{item.icon || "🏫"}</span>
+                              <span>{item.name}</span>
+                              <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
+                            </a>
+                          ))
+                        )}
                       </div>
                     )}
                   </div>
@@ -255,23 +267,27 @@ export default function Layout() {
                     </button>
                     {mobilePartnerOpen && (
                       <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px", margin: "4px 0" }}>
-                        {PARTNER_ITEMS.map((item) => (
-                          <a
-                            key={item.id}
-                            href={item.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px", textDecoration: "none" }}
-                            onClick={() => {
-                              setMobileOpen(false);
-                              setMobilePartnerOpen(false);
-                            }}
-                          >
-                            <span>{item.icon}</span>
-                            <span>{item.label}</span>
-                            <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
-                          </a>
-                        ))}
+                        {partners.length === 0 ? (
+                          <div style={{ padding: "8px 12px", fontSize: "13px", color: "#64748b" }}>Chưa có đối tác</div>
+                        ) : (
+                          partners.map((item) => (
+                            <a
+                              key={item.id}
+                              href={item.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", fontSize: "14px", color: "#334155", borderRadius: "6px", textDecoration: "none" }}
+                              onClick={() => {
+                                setMobileOpen(false);
+                                setMobilePartnerOpen(false);
+                              }}
+                            >
+                              <span>{item.icon || "🏫"}</span>
+                              <span>{item.name}</span>
+                              <span style={{ marginLeft: "auto", fontSize: "12px", opacity: 0.6 }}>↗</span>
+                            </a>
+                          ))
+                        )}
                       </div>
                     )}
                   </div>

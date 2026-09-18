@@ -28,6 +28,7 @@ import PortalPaymentCallback from "./pages/portal/PortalPaymentCallback";
 import PortalPosts from "./pages/portal/PortalPosts";
 import PortalSettings from "./pages/portal/PortalSettings";
 import PortalPolicies from "./pages/portal/PortalPolicies";
+import PortalPartners from "./pages/portal/PortalPartners";
 
 import "./styles/tokens.css";
 import "./styles/site.css";
@@ -64,6 +65,7 @@ const router = createBrowserRouter([
       { path: "policies", element: <PortalPolicies /> },
       { path: "products", element: <PortalProducts /> },
       { path: "orders", element: <PortalOrders /> },
+      { path: "partners", element: <PortalPartners /> },
       { path: "settings", element: <PortalSettings /> },
       { path: "ledger", element: <PortalLedger /> },
       { path: "payment/callback", element: <PortalPaymentCallback /> },
