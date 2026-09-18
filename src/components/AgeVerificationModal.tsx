@@ -44,41 +44,134 @@ export default function AgeVerificationModal() {
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 999999,
+        backgroundColor: "rgba(0, 0, 0, 0.92)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px",
+        boxSizing: "border-box",
+      }}
+    >
       <div
-        className="max-w-md w-full rounded-3xl p-6 sm:p-8 text-center text-white shadow-2xl relative overflow-hidden border-2 border-red-700/60"
-        style={{ background: "linear-gradient(165deg, #4A040D 0%, #6E0B19 50%, #3B0209 100%)" }}
+        style={{
+          maxWidth: "460px",
+          width: "100%",
+          borderRadius: "24px",
+          padding: "28px 24px",
+          textAlign: "center",
+          color: "#FFFFFF",
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.8)",
+          position: "relative",
+          overflow: "hidden",
+          border: "2px solid rgba(220, 38, 38, 0.6)",
+          background: "linear-gradient(165deg, #4A040D 0%, #6E0B19 50%, #3B0209 100%)",
+          boxSizing: "border-box",
+          fontFamily: "'Be Vietnam Pro', system-ui, -apple-system, sans-serif",
+        }}
       >
         {/* Top Logo Circle */}
-        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white p-1.5 mx-auto mb-4 shadow-2xl border-2 border-amber-400/80 flex items-center justify-center overflow-hidden">
+        <div
+          style={{
+            width: "80px",
+            height: "80px",
+            borderRadius: "50%",
+            backgroundColor: "#FFFFFF",
+            padding: "6px",
+            margin: "0 auto 16px auto",
+            boxShadow: "0 10px 25px rgba(0, 0, 0, 0.5)",
+            border: "2px solid #F59E0B",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+            boxSizing: "border-box",
+          }}
+        >
           <img
             src="/images/logo-black.png"
             alt="Bà Đen Farm"
-            className="w-full h-full object-contain rounded-full"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              borderRadius: "50%",
+              display: "block",
+            }}
             onError={(e) => {
-              (e.target as HTMLImageElement).src = "/images/logo.png";
+              (e.target as HTMLImageElement).style.display = "none";
             }}
           />
         </div>
 
         {/* Badge Subtitle */}
-        <p className="text-amber-400 text-xs sm:text-sm font-extrabold uppercase tracking-wider mb-2 drop-shadow">
+        <p
+          style={{
+            color: "#FBBF24",
+            fontSize: "12px",
+            fontWeight: 800,
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+            margin: "0 0 8px 0",
+          }}
+        >
           XÁC THỰC THÔNG TIN ĐỘ TUỔI TRUY CẬP
         </p>
 
         {/* Main Title */}
-        <h2 className="font-display font-black text-xl sm:text-2xl text-white uppercase tracking-wide mb-3 leading-snug">
+        <h2
+          style={{
+            color: "#FFFFFF",
+            fontSize: "20px",
+            fontWeight: 900,
+            textTransform: "uppercase",
+            letterSpacing: "0.5px",
+            margin: "0 0 12px 0",
+            lineHeight: 1.3,
+          }}
+        >
           VUI LÒNG CHỌN NĂM SINH CỦA BẠN
         </h2>
 
-        {/* Description */}
-        <p className="text-xs sm:text-sm text-amber-100/90 leading-relaxed mb-6 px-1">
-          Hệ thống dựa trên thông tin năm sinh để tính tuổi pháp lý (xác định <strong className="text-amber-300 underline underline-offset-2">đủ 18 tuổi trở lên</strong>) làm căn cứ cho phép truy cập theo quy định.
+        {/* Explanation */}
+        <p
+          style={{
+            color: "rgba(254, 243, 199, 0.9)",
+            fontSize: "13px",
+            lineHeight: 1.5,
+            margin: "0 0 20px 0",
+            padding: "0 4px",
+          }}
+        >
+          Hệ thống dựa trên thông tin năm sinh để tính tuổi pháp lý (xác định{" "}
+          <strong style={{ color: "#FCD34D", textDecoration: "underline" }}>
+            đủ 18 tuổi trở lên
+          </strong>
+          ) làm căn cứ cho phép truy cập theo quy định.
         </p>
 
         {/* Select Year */}
-        <div className="space-y-2 mb-4 text-left">
-          <label htmlFor="age-verify-year-select" className="block text-center text-xs sm:text-sm font-bold text-amber-300">
+        <div style={{ marginBottom: "16px", textAlign: "left" }}>
+          <label
+            htmlFor="age-verify-year-select"
+            style={{
+              display: "block",
+              textAlign: "center",
+              fontSize: "13px",
+              fontWeight: 700,
+              color: "#FCD34D",
+              marginBottom: "8px",
+            }}
+          >
             Năm sinh của bạn:
           </label>
           <select
@@ -88,7 +181,21 @@ export default function AgeVerificationModal() {
               setSelectedYear(e.target.value);
               setErrorMsg("");
             }}
-            className="w-full p-3.5 rounded-2xl bg-white text-gray-900 font-bold text-sm sm:text-base text-center border-2 border-amber-400 shadow-lg focus:outline-none focus:ring-4 focus:ring-amber-400/40 cursor-pointer transition"
+            style={{
+              width: "100%",
+              padding: "12px 16px",
+              borderRadius: "16px",
+              backgroundColor: "#FFFFFF",
+              color: "#111827",
+              fontWeight: 700,
+              fontSize: "15px",
+              textAlign: "center",
+              border: "2px solid #F59E0B",
+              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              cursor: "pointer",
+              outline: "none",
+              boxSizing: "border-box",
+            }}
           >
             <option value="">-- Chọn Năm Sinh --</option>
             {years.map((y) => (
@@ -101,7 +208,20 @@ export default function AgeVerificationModal() {
 
         {/* Error Message */}
         {errorMsg && (
-          <div className="mb-4 p-3 rounded-xl bg-red-950/90 border border-red-500/60 text-red-200 text-xs text-center font-medium leading-relaxed">
+          <div
+            style={{
+              marginBottom: "16px",
+              padding: "12px",
+              borderRadius: "12px",
+              backgroundColor: "rgba(69, 10, 10, 0.9)",
+              border: "1px solid rgba(239, 68, 68, 0.6)",
+              color: "#FCA5A5",
+              fontSize: "12px",
+              textAlign: "center",
+              fontWeight: 500,
+              lineHeight: 1.4,
+            }}
+          >
             {errorMsg}
           </div>
         )}
@@ -109,14 +229,42 @@ export default function AgeVerificationModal() {
         {/* Confirm Button */}
         <button
           onClick={handleConfirm}
-          className="w-full py-3.5 px-6 rounded-2xl bg-[#05A85A] hover:bg-[#04934E] text-white font-extrabold text-sm sm:text-base tracking-wide uppercase shadow-xl shadow-emerald-950/60 transition transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 border border-emerald-400/40 cursor-pointer"
+          style={{
+            width: "100%",
+            padding: "14px 24px",
+            borderRadius: "16px",
+            backgroundColor: "#05A85A",
+            color: "#FFFFFF",
+            fontWeight: 800,
+            fontSize: "15px",
+            letterSpacing: "0.5px",
+            textTransform: "uppercase",
+            border: "1px solid rgba(52, 211, 153, 0.4)",
+            cursor: "pointer",
+            boxShadow: "0 10px 20px rgba(5, 168, 90, 0.4)",
+            transition: "all 0.2s ease",
+            boxSizing: "border-box",
+          }}
         >
           🛡️ XÁC NHẬN & TRUY CẬP
         </button>
 
         {/* Disclaimer */}
-        <p className="text-[10px] sm:text-xs text-amber-200/70 leading-relaxed mt-6 pt-4 border-t border-white/10 text-center">
-          Thông tin năm sinh là căn cứ pháp lý để thực hiện quy định Luật Phòng, chống tác hại của rượu, bia. Sản phẩm rượu không dành cho người dưới 18 tuổi.
+        <p
+          style={{
+            fontSize: "11px",
+            color: "rgba(253, 230, 138, 0.7)",
+            lineHeight: 1.5,
+            marginTop: "20px",
+            paddingTop: "14px",
+            borderTop: "1px solid rgba(255, 255, 255, 0.15)",
+            textAlign: "center",
+            margin: "20px 0 0 0",
+          }}
+        >
+          Thông tin năm sinh là căn cứ pháp lý để thực hiện quy định Luật Phòng,
+          chống tác hại của rượu, bia. Sản phẩm rượu không dành cho người dưới 18
+          tuổi.
         </p>
       </div>
     </div>
