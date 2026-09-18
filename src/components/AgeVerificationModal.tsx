@@ -5,6 +5,7 @@ export default function AgeVerificationModal() {
   const [selectedYear, setSelectedYear] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [years, setYears] = useState<number[]>([]);
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     const currentYear = new Date().getFullYear();
@@ -97,20 +98,22 @@ export default function AgeVerificationModal() {
             boxSizing: "border-box",
           }}
         >
-          <img
-            src="/images/logo-black.png"
-            alt="Bà Đen Farm"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              borderRadius: "50%",
-              display: "block",
-            }}
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
-          />
+          {!imgError ? (
+            <img
+              src="/images/logo-black.png"
+              alt="Bà Đen Farm"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                borderRadius: "50%",
+                display: "block",
+              }}
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <span style={{ fontSize: "36px" }}>🛡️</span>
+          )}
         </div>
 
         {/* Badge Subtitle */}
