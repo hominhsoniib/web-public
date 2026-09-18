@@ -312,12 +312,27 @@ export default function Layout() {
         <div className="container footer-grid">
           <div>
             <div className="footer-brand" style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-              <ResponsiveImage
-                src="/images/logo-gold.png"
-                alt="Bà Đen Farm"
-                sizes="36px"
-                style={{ height: "36px", width: "36px", objectFit: "cover", borderRadius: "6px" }}
-              />
+              <div
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "8px",
+                  backgroundColor: "#FFFFFF",
+                  padding: "3px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.25)",
+                  flexShrink: 0,
+                  boxSizing: "border-box",
+                }}
+              >
+                <img
+                  src="/images/logo-black.png"
+                  alt="Bà Đen Farm"
+                  style={{ height: "100%", width: "100%", objectFit: "contain", borderRadius: "5px" }}
+                />
+              </div>
               <span className="site-logo-name" style={{ color: "#fff", fontSize: "20px" }}>Bà Đen Farm</span>
             </div>
             <p className="footer-tagline">
