@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 import ResponsiveImage from "./ResponsiveImage";
+import AgeVerificationModal from "./AgeVerificationModal";
 
 const FB_URL = "https://www.facebook.com/people/S%C3%A2m-B%E1%BB%91-Ch%C3%ADnh-B%C3%A0-%C4%90en-Farm/100076325312382/";
 
@@ -41,6 +42,7 @@ export default function Layout() {
 
   return (
     <>
+      <AgeVerificationModal />
       <header className="site-header">
         <div className="container site-header-inner">
           <Link to="/" className="site-logo" onClick={() => setMobileOpen(false)}>
